@@ -62,7 +62,20 @@ async function cognito() {
 
 async function cloudStart(email: string): Promise<StartResult> {
   const { sdk, client, ClientId } = await cognito();
+  // Sign up first. The pool hides whether a user exists (Amplify's default), so InitiateAuth for an unknown email
+  // returns a fake challenge instead of UserNotFoundException: no user is created and no email is sent. SignUp
+  // still says UsernameExistsException, so that is the reliable way to tell a new email from a returning one.
   try {
+    await client.send(
+      new sdk.SignUpCommand({ ClientId, Username: email, UserAttributes: [{ Name: "email", Value: email }] }),
+    );
+    pending().set(email, { kind: "signup", exp: Date.now() + TTL_MS });
+    return { ok: true };
+  } catch (err) {
+    if (!(err instanceof sdk.UsernameExistsException)) return cloudError(err);
+  }
+  try {
+    // Returning user: passwordless sign-in, Cognito emails a one-time code.
     let out = await client.send(
       new sdk.InitiateAuthCommand({
         ClientId,
@@ -81,16 +94,6 @@ async function cloudStart(email: string): Promise<StartResult> {
       );
     }
     pending().set(email, { kind: "otp", session: out.Session, exp: Date.now() + TTL_MS });
-    return { ok: true };
-  } catch (err) {
-    if (!(err instanceof sdk.UserNotFoundException)) return cloudError(err);
-  }
-  try {
-    // New user: passwordless sign-up; Cognito emails a confirmation code.
-    await client.send(
-      new sdk.SignUpCommand({ ClientId, Username: email, UserAttributes: [{ Name: "email", Value: email }] }),
-    );
-    pending().set(email, { kind: "signup", exp: Date.now() + TTL_MS });
     return { ok: true };
   } catch (err) {
     return cloudError(err);
