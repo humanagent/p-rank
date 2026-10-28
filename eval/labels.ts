@@ -1,72 +1,18 @@
-// Eval labels, prepared before the build. category = the tournament category in the YouTube title (every player of
-// that final gets it); 1 = pro matches (ceiling check); null = not padel or nobody playing (the gate must reject it).
-// dev = the clips prompts were tuned on; test = other videos, random seconds (seeded), never looked at while tuning.
-// Clips are 30 s MP4s named <id>.mp4, kept out of git; the folder is passed to eval/run.ts.
+// Reads labels.tsv: one row per 10 s clip, labelled with the tournament category in the video title.
+import { readFile } from "node:fs/promises";
 import type { Category } from "@/shared/types";
 
-export type EvalSet = "dev" | "test";
-export type Label = { id: string; set: EvalSet; category: Category | null; padel: boolean };
+export type Label = { id: string; youtube: string; category: Category | null; start: number; source: string };
 
-export const LABELS: Label[] = [
-  { id: "ng7a", set: "dev", category: 7, padel: true },
-  { id: "ng7b", set: "dev", category: 7, padel: true },
-  { id: "ng7c", set: "dev", category: 7, padel: true },
-  { id: "ng6a", set: "dev", category: 6, padel: true },
-  { id: "ng6b", set: "dev", category: 6, padel: true },
-  { id: "ng6c", set: "dev", category: 6, padel: true },
-  { id: "ng5a", set: "dev", category: 5, padel: true },
-  { id: "ng5b", set: "dev", category: 5, padel: true },
-  { id: "ng5c", set: "dev", category: 5, padel: true },
-  { id: "ng4a", set: "dev", category: 4, padel: true },
-  { id: "ng4b", set: "dev", category: 4, padel: true },
-  { id: "ng4c", set: "dev", category: 4, padel: true },
-  { id: "ng3a", set: "dev", category: 3, padel: true },
-  { id: "ng3b", set: "dev", category: 3, padel: true },
-  { id: "ng2a", set: "dev", category: 2, padel: true },
-  { id: "ng1a", set: "dev", category: 1, padel: true },
-  { id: "pro1", set: "dev", category: 1, padel: true },
-  { id: "pro2", set: "dev", category: 1, padel: true },
-  { id: "pro3", set: "dev", category: 1, padel: true },
-  { id: "neg_tennis", set: "dev", category: null, padel: false },
-  { id: "neg_pickle", set: "dev", category: null, padel: false },
-  { id: "neg_squash", set: "dev", category: null, padel: false },
-  { id: "neg_empty", set: "dev", category: null, padel: false },
-  { id: "neg_warmup", set: "dev", category: null, padel: false },
-  { id: "ng7d", set: "dev", category: 7, padel: true },
-  { id: "ng7e", set: "dev", category: 7, padel: true },
-  { id: "ng7f", set: "dev", category: 7, padel: true },
-  { id: "ng7g", set: "dev", category: 7, padel: true },
-  { id: "ng6d", set: "dev", category: 6, padel: true },
-  { id: "ng6e", set: "dev", category: 6, padel: true },
-  { id: "ng6f", set: "dev", category: 6, padel: true },
-  { id: "ng6g", set: "dev", category: 6, padel: true },
-  { id: "ng5d", set: "dev", category: 5, padel: true },
-  { id: "ng5e", set: "dev", category: 5, padel: true },
-  { id: "ng5f", set: "dev", category: 5, padel: true },
-  { id: "ng5g", set: "dev", category: 5, padel: true },
-  { id: "ng4d", set: "dev", category: 4, padel: true },
-  { id: "ng4e", set: "dev", category: 4, padel: true },
-  { id: "ng4f", set: "dev", category: 4, padel: true },
-  { id: "ng4g", set: "dev", category: 4, padel: true },
-  { id: "ap3a", set: "dev", category: 3, padel: true },
-  { id: "bp3a", set: "dev", category: 3, padel: true },
-  { id: "ps2a", set: "dev", category: 2, padel: true },
-  { id: "ps2b", set: "dev", category: 2, padel: true },
-  { id: "dead_ng6b", set: "dev", category: null, padel: false },
-  { id: "dead_ng2a", set: "dev", category: null, padel: false },
-  { id: "dead_ng7a", set: "dev", category: null, padel: false },
-  { id: "t7a", set: "test", category: 7, padel: true },
-  { id: "t7b", set: "test", category: 7, padel: true },
-  { id: "t7c", set: "test", category: 7, padel: true },
-  { id: "t6a", set: "test", category: 6, padel: true },
-  { id: "t6b", set: "test", category: 6, padel: true },
-  { id: "t6c", set: "test", category: 6, padel: true },
-  { id: "t5a", set: "test", category: 5, padel: true },
-  { id: "t5b", set: "test", category: 5, padel: true },
-  { id: "t5c", set: "test", category: 5, padel: true },
-  { id: "t4a", set: "test", category: 4, padel: true },
-  { id: "t4b", set: "test", category: 4, padel: true },
-  { id: "t4c", set: "test", category: 4, padel: true },
-];
+const CATEGORY: Record<string, Category | null> = {
+  "1ra": 1, "2da": 2, "3ra": 3, "4ta": 4, "5ta": 5, "6ta": 6, "7ma": 7, none: null,
+};
 
-export const labelsFor = (set: EvalSet): Label[] => LABELS.filter((l) => l.set === set);
+export async function readLabels(file: string): Promise<Label[]> {
+  const lines = (await readFile(file, "utf8")).split("\n").filter((l) => l && !l.startsWith("#"));
+  return lines.slice(1).map((line) => {
+    const [id, youtube, category, start, source] = line.split("\t");
+    if (!(category in CATEGORY)) throw new Error(`unknown category "${category}" for ${id}`);
+    return { id, youtube, category: CATEGORY[category], start: Number(start), source };
+  });
+}

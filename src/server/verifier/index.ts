@@ -9,7 +9,7 @@ import { store } from "@/server/store";
 import { storage } from "@/server/storage";
 import { ask } from "./openrouter";
 
-type RawFind = { reason?: unknown; isPadel?: unknown; at?: unknown; players?: unknown };
+type RawFind = { reason?: unknown; is_padel?: unknown; at?: unknown; players?: unknown };
 
 const clamp = (n: number) => Math.min(1000, Math.max(0, Math.round(n)));
 
@@ -36,10 +36,9 @@ export async function find(video: Buffer, mime: string): Promise<Find> {
     .filter((p): p is { box: Box; looks: string } => p !== null)
     .slice(0, 4);
   return {
-    isPadel: data.isPadel === true,
+    isPadel: data.is_padel === true,
     reason: typeof data.reason === "string" ? data.reason : "",
-    // Boxes are drawn on the first frame: the model's own timestamps drifted ~2 s, and players move that much.
-    at: 0,
+    at: typeof data.at === "number" && Number.isFinite(data.at) && data.at >= 0 ? data.at : 0,
     players: assignSides(players),
   };
 }

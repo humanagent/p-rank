@@ -56,29 +56,34 @@ rule and the draws.
 
 ## Eval
 
+Run during the prep, before the 2-hour build, on the same prompts and pipeline this repo ships
+(`src/lib/rubric.ts`, find → rate ×3 → median and band → ±1). The cached answers are in `eval/<set>/results.jsonl`,
+so the reports regenerate without a model call.
+
 Public 30 s clips from padel tournament finals, each labelled with the category in the video title (every player
-of that final gets it), plus not-padel negatives (tennis, pickleball, squash, an empty court, dead time).
-Dev = 47 clips the prompts were tuned on; test = 12 clips from other videos at random seconds, run once.
-Labels: `eval/labels.ts`. Clips are not in git.
+of that final gets it); the two players nearest the camera rated. **Dev**: 17 padel clips (7th to 1st, no 2nd) and
+3 negatives, where every prompt was tuned. **Test**: 12 clips from other finals (7th to 4th) at a random second,
+run once. Labels: `eval/<set>/labels.tsv`; clips are not in git (`eval/fetch-clips.sh`).
+
+| | Exact | Within ±1 | Claims their own category: within the band | Claims 2 below: outside the band |
+|---|---|---|---|---|
+| **Production, dev** | 29% (12–50) | 68% (50–85) | 71% (53–85) | 35% (10–67) |
+| **Production, test (run once)** | 18% (0–41) | 64% (36–86) | 82% (68–95) | 20% (0–67) |
+| 1 sample instead of 3, dev | 26% | 59% | 59% | 45% |
+| Claim shown, flag contradictions, dev | – | – | 97% not flagged | 30% flagged |
+| Baseline: say 7th to everyone, dev / test | 24% / 27% | 41% / 55% | 41% / 55% | 40% / 0% |
+| Control: shuffled labels, 1000 shuffles, dev / test | 17% / 24% | 46% / 67% | 54% / 83% | 44% / 23% |
+
+95% bootstrap intervals over clips. Not-padel gate: 3 of 3 negatives rejected on dev; 1 of 29 padel clips wrongly
+rejected (a changeover at the test's random second). Latency after "Verify me": p50 38 s, p90 53 s. P-Rank lands near
+the category but doesn't separate amateurs (on test, shuffled labels score the same), so a coach confirms every entry.
+Full tables: `eval/dev/REPORT.md`, `eval/test/REPORT.md`.
 
 ```bash
-infisical run -- bun eval/run.ts dev  <dev clips folder>     # paid: find + 3 rate calls per near player
-infisical run -- bun eval/run.ts test <test clips folder>    # EVAL_PLAYERS=all to rate the far players too
-bun eval/report.ts dev                                       # no model calls -> eval/dev/REPORT.md, summary.json
-bun eval/report.ts test
+EVAL_PLAYERS=near infisical run -- bun eval/run.ts dev <clips folder>   # paid: 1 find + 3 rate calls per player
+bun eval/report.ts dev                                                  # no model calls -> REPORT.md, summary.json
+infisical run -- bun eval/contradiction.ts dev <clips folder>           # the claim-shown ablation
 ```
-
-The report gives exact and within-±1 accuracy, own-category claim within the band, claim 2 below landing outside,
-a 1-sample ablation, a "say 7th to everyone" baseline, a shuffled-label control (1000 shuffles), 95% bootstrap CIs
-over clips, Spearman, the not-padel gate, latency p50/p90, and % outside the band by claim distance.
-
-| | dev | test |
-|---|---|---|
-| Own-category claim within the band | [TK] | [TK] |
-| Claim 2 below lands outside | [TK] | [TK] |
-| Within ±1 (median vs label) | [TK] | [TK] |
-| Negatives rejected | [TK] | n/a (no negatives) |
-| Latency per clip, p50 | [TK] | [TK] |
 
 ## Deploy
 

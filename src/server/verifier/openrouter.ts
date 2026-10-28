@@ -1,7 +1,7 @@
 // One OpenRouter call: a prompt, a strict JSON schema and the clip inline as base64.
 
 const URL = "https://openrouter.ai/api/v1/chat/completions";
-const TIMEOUT_MS = 90_000;
+const TIMEOUT_MS = 150_000; // 30 s clips: a rate call took >90 s on 6 of 47 eval clips
 
 export type Usage = { prompt_tokens?: number; completion_tokens?: number; total_tokens?: number; cost?: number };
 export type AskResult<T> = { data: T; usage: Usage | null; model: string; ms: number };

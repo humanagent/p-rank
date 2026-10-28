@@ -1,0 +1,53 @@
+# Dev set: the clips every prompt and rubric change was tuned on. Report its numbers as dev, never as test.
+# Accuracy eval labels. category = the tournament category in the video title (every player of that final
+# gets it); 1ra for pro matches (ceiling check); none = not padel or nobody playing (the not-padel gate must
+# reject it). start = the second of the YouTube video the 10 s clip starts at. Picked and checked by frame
+# 2026-10-26 by frame. Clips: eval/fetch-clips.sh <folder>, kept out of git.
+id	youtube	category	start	source
+ng7a	CWq6_Oz2tsk	7ma	700	New Green Padel · Final 7ma Los Arcos 18-10-2026
+ng7b	F2oY4eANZR8	7ma	463	New Green Padel · Final 7ma Los Arcos 20-09-2026
+ng7c	VLsi-fO7nzE	7ma	711	New Green Padel · Final 7ma La Fabrica 30/08/2026
+ng6a	HuchILhqkEY	6ta	509	New Green Padel · Final 6ta Los Arcos 23-10-2026
+ng6b	e6Fa5RsBDlk	6ta	760	New Green Padel · Final 6ta Los Arcos 02-10-2026
+ng6c	T832MyOx0fs	6ta	689	New Green Padel · Final 6ta Olivos Padel Club 06/02/2026
+ng5a	fO58s7_xaZQ	5ta	448	New Green Padel · Final 5ta Olivos Padel Club 13/02/2026
+ng5b	nf-ZxDmG5qs	5ta	529	New Green Padel · Final 5ta Olivos Padel Club 10/08/2025
+ng5c	9aVINIGLNSE	5ta	595	New Green Padel · Final 5ta New Green Americanos 19/5/2024
+ng4a	pKtSMDk-X2c	4ta	422	New Green Padel · Final 4ta New Green Americanos 7/8/2022
+ng4b	Q6umhti0JG0	4ta	411	New Green Padel · Final 4ta La Bandeja 1/5/2022
+ng4c	v6i4COlGsj8	4ta	900	New Green Padel · Final 4ta New Green Master 11/12/2022
+ng3a	ujYM8xLnUYU	3ra	556	New Green Padel · Final 3ra New Green Americanos 10/9/2023
+ng3b	CcwQGtnphkk	3ra	479	New Green Padel · Final 3ra New Green Americanos 23/7/2023
+ng2a	Sfvy5yGIHFE	2da	3500	New Green Padel · Final 2da La Vieja Quinta 23/12/2023
+ng1a	E6a9GUsskrU	1ra	1300	New Green Padel · Final 1ra La Vieja Quinta 7/12/2020
+pro1	rFtBTCLAaXQ	1ra	178	beIN SPORTS Asia · Premier Padel London P1 final highlights
+pro2	79N0h__pA_I	1ra	520	beIN SPORTS Asia · Premier Padel Madrid P1 final highlights
+pro3	flgDRphwbZA	1ra	180	beIN SPORTS Asia · Premier Padel Milan P1 final highlights
+neg_tennis	UXD1UgwZYkI	none	568	Austin Conlon · USTA 3.5 doubles match (tennis)
+neg_pickle	EuRaTjMXYJk	none	610	Team Hanlon Pickleball · Mixed 3.5 gold medal match (pickleball)
+neg_squash	hPSnoleXIwY	none	236	Brighton Squash Club · 2022 B grade final (squash)
+neg_empty	v6i4COlGsj8	none	1717	New Green Padel · Final 4ta 11/12/2022, a stretch with nobody on court
+neg_warmup	e1hhnjwBd10	none	183	el4Set · padel warm-up routine, stretching off the ball
+ng7d	QJKEaR8ZvXA	7ma	596	New Green Padel · Final Torneo "Los Arcos" 7ma 13/09/2026
+ng7e	uieGlgBnjos	7ma	403	New Green Padel · Final Torneo "Los Arcos" 7ma 23/08/2026
+ng7f	BuGjeEpoA9w	7ma	677	New Green Padel · Final Torneo "Los Arcos" 7ma 02/08/2026
+ng7g	FscI0-x-Rg0	7ma	630	New Green Padel · Final Torneo "La Fabrica" 7ma 28/06/2026
+ng6d	sqE0okMqGhY	6ta	492	New Green Padel · FINAL TORNEO DE PÁDEL 6TA |📍 LOS ARCOS | 25-09-2026
+ng6e	YdXG6nHOwZ8	6ta	863	New Green Padel · Final Torneo "Padel Pro" 6ta 15/08/2026
+ng6f	NRToYcD0f14	6ta	791	New Green Padel · Final Torneo "Padel Pro" 6ta 25/07/2026
+ng6g	rX25dtfg2CQ	6ta	551	New Green Padel · Final Torneo "Los Arcos" 6ta 28/06/2026
+ng5d	bfxwIjvks_M	5ta	898	New Green Padel · Final Torneo "Olivos Padel Club" 5ta 25/07/2025
+ng5e	BItJluL_hTc	5ta	489	New Green Padel · Final Torneo "Olivos Padel Club" 5ta 16/05/2025
+ng5f	sXltxAplZ4k	5ta	464	New Green Padel · Final Torneo "Club de Padel" 5ta 09/03/2025
+ng5g	R143sLg705k	5ta	508	New Green Padel · Final Torneo "New Green Americanos" 5ta 7/4/2024
+ng4d	_mfRdmhVZ-0	4ta	461	New Green Padel · Final Torneo "New Green Americanos" 4ta 26/6/2022
+ng4e	A6wicIRNIEs	4ta	581	New Green Padel · Final Torneo "La Bandeja" 4ta 27/2/2022
+ng4f	HexjQ_iyUpI	4ta	865	New Green Padel · Final Torneo "New Green Americanos" 4ta 24/10/2021
+ng4g	FmCsATD7bVI	4ta	704	New Green Padel · Final Torneo "New Green Americanos" 4ta 19/9/2021
+ap3a	bm9811pomBE	3ra	929	Padel a Full · APA - Final 3° Categoria - Yob Bessone vs Hadad Sobrecasa - Torneo Nacional Libres - Córdoba
+bp3a	FSDsAC1aNRU	3ra	1700	Bajo Presión TV · FINAL 3RA CATEGORIA 🔥 | TEVES - VIA  vs  RAMOS - GONZALEZ | Partido Completo
+ps2a	JabZkjzTq44	2da	365	padelsurTV ® · FINAL 2da Categoría - Master Tour Padel - Febrero 2022
+ps2b	0Af6jheaiaU	2da	590	padelsurTV ® · FINAL 2da Categoría - Latrach/García VS Smerkin/Cordero
+dead_ng6b	e6Fa5RsBDlk	none	520	New Green Padel · Final 6ta Los Arcos 02-10-2026, a stretch between points (nobody playing)
+dead_ng2a	Sfvy5yGIHFE	none	1500	New Green Padel · Final 2da La Vieja Quinta 23/12/2023, a stretch between points (nobody playing)
+dead_ng7a	CWq6_Oz2tsk	none	492	New Green Padel · Final 7ma Los Arcos 18-10-2026, a stretch between points (nobody playing)
