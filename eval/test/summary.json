@@ -1,0 +1,75 @@
+{
+  "clips": 12,
+  "players": 22,
+  "rated": 21,
+  "exact": "18%",
+  "withinOne": "64%",
+  "honestPasses": "82%",
+  "lowClaimCaught": "20%",
+  "baseline": {
+    "label": 7,
+    "exact": "27%",
+    "withinOne": "55%",
+    "lowClaimCaught": "0%"
+  },
+  "negativesRejected": "0 of 0",
+  "padelWronglyRejected": "1 of 12",
+  "spearmanAll": 0.04,
+  "spearmanAmateurs": 0.04,
+  "secondsP50": 39.6,
+  "secondsP90": 53,
+  "byDistance": [
+    {
+      "below": 1,
+      "outside": 3,
+      "of": 16
+    },
+    {
+      "below": 2,
+      "outside": 2,
+      "of": 10
+    },
+    {
+      "below": 3,
+      "outside": 2,
+      "of": 6
+    }
+  ],
+  "table": [
+    {
+      "name": "Production: clothes, shot by shot, 3 samples",
+      "exact": "18% (0%–41%)",
+      "withinOne": "64% (36%–86%)",
+      "honestPasses": "82% (68%–95%)",
+      "lowClaimCaught": "20% (0%–67%)"
+    },
+    {
+      "name": "1 sample instead of 3",
+      "exact": "32% (9%–55%)",
+      "withinOne": "55% (32%–77%)",
+      "honestPasses": "55% (32%–77%)",
+      "lowClaimCaught": "70% (50%–100%)"
+    },
+    {
+      "name": "Ablation: claim shown, flag contradictions",
+      "exact": "–",
+      "withinOne": "–",
+      "honestPasses": "100% (100%–100%)",
+      "lowClaimCaught": "10% (0%–33%)"
+    },
+    {
+      "name": "Baseline: say 7 to everyone",
+      "exact": "27% (0%–55%)",
+      "withinOne": "55% (27%–82%)",
+      "honestPasses": "55% (27%–82%)",
+      "lowClaimCaught": "0% (0%–0%)"
+    },
+    {
+      "name": "Control: shuffled labels (mean of 1000 shuffles)",
+      "exact": "24% (5%–45%)",
+      "withinOne": "67% (45%–86%)",
+      "honestPasses": "83% (68%–95%)",
+      "lowClaimCaught": "23% (0%–42%)"
+    }
+  ]
+}

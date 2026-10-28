@@ -1,0 +1,18 @@
+# Test set: clips from videos that are not in the dev set, never looked at while tuning. Run once, with the final
+# prompts, and report that number. Same columns as dev/labels.tsv; start = a random second of the video (seeded),
+# not one picked by eye, so the test is not cherry-picked toward clear rallies.
+# Picked 2026-10-27: 3 finals per category from the channel's videos not in dev (7th to 4th; no single-category 3rd
+# to 1st final was found), videos and seconds drawn with Python random.Random(7), start in [120, duration - 120].
+id	youtube	category	start	source
+t7a	RW5zX4y7LLs	7ma	928	New Green Padel · Final Torneo "Olivos Padel Club" 7ma 21/03/2025
+t7b	4ICmqTWwfks	7ma	218	New Green Padel · Final Torneo "New Green Americanos" 7ma 7/2/2021
+t7c	NYbb9Dc-pYY	7ma	416	New Green Padel · Final "New Green Master" 7ma 21/12/2025
+t6a	fN7ndQANQ5c	6ta	238	New Green Padel · Final Torneo "New Green Americanos" 6ta 8/5/2022
+t6b	r70ULOAw9q0	6ta	1159	New Green Padel · Final Torneo "La Fabrica" 6ta 22/03/2026
+t6c	0xKUzOCdP-4	6ta	339	New Green Padel · Final Torneo "New Green Americanos" 6ta 02/02/2024
+t5a	tRht0FC4lWo	5ta	976	New Green Padel · Final Torneo "Olivos Padel Club" 5ta 06/06/2025
+t5b	zFjwJtSvli4	5ta	263	New Green Padel · Final Torneo "New Green Americanos" 5ta 28/7/2023
+t5c	98VIj6Byg4E	5ta	1105	New Green Padel · Final "New Green Master" 5ta 15/12/2024
+t4a	pW74epzK_w4	4ta	241	New Green Padel · Final Torneo "La Bandeja" 4ta 27/3/2022
+t4b	weCbke1_bXw	4ta	699	New Green Padel · Final Torneo "New Green Americanos" 4ta 7/3/2021
+t4c	_ina7mLnfBU	4ta	246	New Green Padel · Final Torneo "New Green Americanos" 4ta 25/7/2021
