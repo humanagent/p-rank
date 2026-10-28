@@ -1,0 +1,83 @@
+.drop {
+  flex: 1;
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border: 1.5px dashed var(--bronze, #a87b45);
+  border-radius: 26px;
+  background: var(--white, #fffdf8);
+  color: var(--forest, #1f3b2d);
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  padding: 0;
+  transition: background-color 0.15s ease;
+}
+.drop input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.drop video {
+  display: block;
+  width: 100%;
+  height: auto; /* the clip's own ratio */
+}
+.dragging {
+  background: var(--cream-2, #ebe2d0);
+  border-color: var(--forest, #1f3b2d);
+}
+.busy,
+.busy input {
+  cursor: progress;
+}
+.choose {
+  font-family: var(--serif, Georgia, serif);
+  font-size: 24px;
+}
+.dragHint {
+  font-size: 12px;
+  color: var(--muted, #5e5a52);
+}
+.bullets {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--muted, #5e5a52);
+}
+.bullets div {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.bullets div::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--bronze, #a87b45);
+  flex-shrink: 0;
+}
+.progress {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.bar {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--cream-2, #ebe2d0);
+  overflow: hidden;
+}
+.fill {
+  display: block;
+  height: 100%;
+  background: var(--forest, #1f3b2d);
+  transition: width 0.2s;
+}

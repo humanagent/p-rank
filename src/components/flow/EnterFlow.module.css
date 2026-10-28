@@ -1,0 +1,23 @@
+.body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px 22px 28px;
+}
+.center {
+  flex: 1;
+  display: grid;
+  place-items: center;
+}
+.back {
+  align-self: flex-start;
+  background: none;
+  border: none;
+  color: var(--forest, #1f3d2b);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 0;
+  font-family: inherit;
+}

@@ -1,0 +1,57 @@
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+.signout {
+  background: none;
+  border: none;
+  color: var(--forest, #1f3d2b);
+  font-size: 13px;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 6px 0;
+  font-family: inherit;
+}
+.h2 {
+  font-family: var(--serif, Georgia, serif);
+  color: var(--forest, #1f3d2b);
+  font-size: 19px;
+  font-weight: 500;
+  margin-top: 8px;
+}
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(31, 61, 43, 0.1);
+  background: #fff;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  color: var(--ink, #1c1c1a);
+}
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.date {
+  font-weight: 600;
+  font-size: 14px;
+}
+.claim {
+  font-size: 13px;
+  opacity: 0.7;
+}

@@ -1,0 +1,138 @@
+/* Phone: full screen. Desktop: the flow inside an iPhone-shaped frame (rehearsal look, lead's fit-the-viewport fix). */
+.page {
+  min-height: 100dvh;
+  width: 100%;
+  background: var(--cream, #f5efe3);
+  color: var(--ink, #1c1c1a);
+}
+.side {
+  display: none;
+}
+.phone {
+  position: relative;
+  width: 100%;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+.notch {
+  display: none;
+}
+.screen {
+  flex: 1;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--cream, #f5efe3);
+}
+.dark {
+  background: var(--forest, #1f3b2d);
+}
+@media (min-width: 640px) {
+  .page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 64px;
+    height: 100dvh;
+    min-height: 0;
+    overflow: hidden;
+    padding: 24px clamp(16px, 4vw, 56px);
+  }
+  .phone {
+    /* Same as the rehearsal: fit the window height (no page scroll), 414×868 proportions; the screen scrolls inside. */
+    flex: 0 0 auto;
+    height: min(868px, calc(100dvh - 48px));
+    width: auto;
+    aspect-ratio: 414 / 868;
+    min-height: 0;
+    padding: 12px;
+    border-radius: 62px;
+    background: #121614;
+    box-shadow: 0 40px 90px -40px rgba(29, 59, 47, 0.65);
+  }
+  .notch {
+    display: block;
+    position: absolute;
+    top: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 118px;
+    height: 34px;
+    border-radius: 999px;
+    background: #121614;
+    z-index: 5;
+  }
+  .screen {
+    height: 100%;
+    min-height: 0;
+    border-radius: 50px;
+    overflow: hidden auto;
+    padding-top: 42px; /* + the body's 20px = the rehearsal's 62px under the notch */
+  }
+}
+@media (min-width: 1180px) {
+  .side {
+    flex: 1 1 260px;
+    max-width: 320px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .side p {
+    color: var(--muted, #5e5a52);
+    font-size: 16px;
+    line-height: 1.6;
+  }
+}
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--bronze-ink, #7d5a2e);
+}
+.big {
+  font-family: var(--serif, Georgia, serif);
+  font-size: 52px;
+  line-height: 0.95;
+  color: var(--forest, #1f3b2d);
+}
+.hint {
+  font-size: 13px;
+  color: var(--muted, #5e5a52);
+}
+.linkButton {
+  align-self: start;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 13px;
+  color: var(--muted, #5e5a52);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.progress {
+  list-style: none;
+  gap: 8px;
+}
+.progress li {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  padding: 12px 16px;
+  border-radius: 16px;
+  border: 1px solid var(--line, #d9cdb6);
+  font-size: 15px;
+}
+.progress li[aria-current="step"] {
+  background: var(--forest, #1f3b2d);
+  color: var(--cream, #f5efe3);
+  border-color: var(--forest, #1f3b2d);
+}
+.n {
+  font-family: var(--serif, Georgia, serif);
+  font-size: 22px;
+  font-weight: 700;
+  min-width: 30px;
+}
