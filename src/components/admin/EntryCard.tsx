@@ -5,9 +5,18 @@ import { CATEGORY_NAME, type Entry } from "@/shared/types";
 import { bandText, outsideText, type Action } from "./util";
 import styles from "./admin.module.css";
 
-type Props = { entry: Entry; mine: boolean; busy: boolean; onAct: (id: string, action: Action, note?: string) => void };
+// review: an entry outside the band (approve / reject). waitlist: an entry within it, waiting for its draw (confirm /
+// decline). Either way the coach sees the clip, the claim, P-Rank's read and the shots before deciding.
+type Props = {
+  entry: Entry;
+  mine: boolean;
+  busy: boolean;
+  mode?: "review" | "waitlist";
+  onAct: (id: string, action: Action, note?: string) => void;
+};
 
-export function EntryCard({ entry, mine, busy, onAct }: Props) {
+export function EntryCard({ entry, mine, busy, mode = "review", onAct }: Props) {
+  const [yes, no] = mode === "waitlist" ? (["confirm", "decline"] as const) : (["approve", "reject"] as const);
   const video = useRef<HTMLVideoElement>(null);
   const [note, setNote] = useState("");
   const a = entry.analysis;
@@ -34,7 +43,11 @@ export function EntryCard({ entry, mine, busy, onAct }: Props) {
         <div className={styles.claim}>
           <span><small>Claimed</small>{entry.claimed ? CATEGORY_NAME[entry.claimed] : "–"}</span>
           <span><small>P-Rank</small>{bandText(entry)}</span>
-          <span className={styles.gap}><small>Outside by</small>{outsideText(entry)}</span>
+          {mode === "waitlist" ? (
+            <span><small>Within the band</small>{entry.waitlist ? `${CATEGORY_NAME[entry.waitlist.category]} draw` : "–"}</span>
+          ) : (
+            <span className={styles.gap}><small>Outside by</small>{outsideText(entry)}</span>
+          )}
         </div>
         {a?.why && <p className={styles.why}>{a.why}</p>}
         {a && a.shots.length > 0 && (
@@ -62,11 +75,11 @@ export function EntryCard({ entry, mine, busy, onAct }: Props) {
               disabled={busy}
             />
             <div className={styles.actions}>
-              <button className={styles.btn} disabled={busy} onClick={() => onAct(entry.id, "approve", note || undefined)}>
-                {busy ? "Saving…" : "Approve"}
+              <button className={styles.btn} disabled={busy} onClick={() => onAct(entry.id, yes, note || undefined)}>
+                {busy ? "Saving…" : yes === "confirm" ? "Confirm spot" : "Approve"}
               </button>
-              <button className={styles.btnGhost} disabled={busy} onClick={() => onAct(entry.id, "reject", note || undefined)}>
-                Reject
+              <button className={styles.btnGhost} disabled={busy} onClick={() => onAct(entry.id, no, note || undefined)}>
+                {no === "decline" ? "Decline" : "Reject"}
               </button>
             </div>
           </div>
