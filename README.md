@@ -15,6 +15,34 @@ Deployed: https://d1b9aupggweoi.cloudfront.net
 3. `/admin`: the coaches' desk (internal, not linked from the landing). Coaches see the queue, approve or reject entries outside the band, confirm or decline
    waitlists. Nobody can review their own entry.
 
+## Accuracy
+
+Measured on public 30 s clips of padel finals, labelled with the tournament category; the two players nearest the
+camera rated with the product's own pipeline. Dev set (17 padel + 3 not padel) for tuning, test set (12 other
+finals) run once. 95% bootstrap intervals over clips. Full method, every iteration and the gaps:
+[`eval/README.md`](eval/README.md).
+
+| | Within ±1 | Claims their own category: within the band | Claims 2 below: outside the band |
+|---|---|---|---|
+| **Dev** | 68% (50–85) | 71% (53–85) | 35% (10–67) |
+| **Test, run once** | 64% (36–86) | 82% (68–95) | 20% (0–67) |
+| Say 7th to everyone, dev / test | 41% / 55% | 41% / 55% | 40% / 0% |
+| Shuffled labels, dev / test | 46% / 67% | 54% / 83% | 44% / 23% |
+
+It lands near the category and catches big under-claims (4 or more categories below: 75–100%), but on the test set
+it does no better than shuffled labels at telling amateurs apart. So a coach confirms every entry, and auto-approve
+stays research.
+
+## What is incomplete (to be done later)
+
+- **Auto-approve**: off on purpose; it would need a rule that passes a threshold on a fresh test set.
+- **Eval next steps**: measure Find on its own, a confusion matrix, one ablation per rubric change
+  ([`eval/README.md`](eval/README.md#to-be-done-later)).
+- **More data**: more clips per category from more channels (today 17 dev clips, 2 to 4 per category, mostly one
+  channel), and negatives and higher categories in the test set.
+- **Not production ready**: no queue or concurrency cap on model calls; Cognito's default email sender (~50 a day);
+  no consent or delete flow for the other players in a clip; no end-to-end test; deployed from a laptop.
+
 ## Development setup
 
 You need [Bun](https://bun.sh) 1.4.4 (the version CI uses) and an [OpenRouter](https://openrouter.ai) API key.
