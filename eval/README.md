@@ -98,17 +98,17 @@ So P-Rank is a helper for the coach, not a judge.
 | 2026-10-28 | **Claim shown, flag contradictions** (ablation) | 97% of honest claims not flagged, 30% of claims 2 below flagged | Not used: the blind rating stays |
 | 2026-10-28 | **Test set**, 12 clips from other finals, run once | 64% ±1, 82% own category within, 20% of claims 2 below caught; control 67% / 83% / 23% | The read: a helper, a coach confirms |
 
-## Gaps
+## To be done later
 
-- **Small sample.** 17 dev clips and 34 players give intervals of about ±17 points, with 2 to 4 clips per category,
-  mostly from one channel. The test set has no negatives and no category above 4th.
-- **Measured together.** Rubric B changed four things at once (clothes, shots, a direct category, 30 s clips), so
-  what each adds is not known.
-- **Find is not measured on its own**: whether it finds every player and whether the rating follows the right one by
-  their clothes. A wrong player would hide inside the rating numbers.
-- **Noisy labels.** The tournament category is a proxy for each player's level.
-- **Next**: more clips per category from more channels, a confusion matrix from the cached answers, a Find check
-  against hand-drawn boxes, and an auto-approve rule only if it passes a threshold on a fresh test set.
+- **Measure Find on its own**: whether it finds every player, and whether the rating follows the right one by their
+  clothes, against hand-drawn boxes. Today a wrong player would hide inside the rating numbers.
+- **A confusion matrix** (tournament category × P-Rank's category), from the cached answers, no model calls.
+- **Split the rubric change**: rubric B changed four things at once (clothes, shots, a direct category, 30 s clips);
+  one ablation each says what each adds.
+- **More data**: more clips per category from more channels (today 17 dev clips, 2 to 4 per category, mostly one
+  channel; intervals of about ±17 points), negatives and higher categories in the test set.
+- **Better labels**: the tournament category is a proxy for each player's level; a coach-labelled set would replace it.
+- **Auto-approve**: only with a rule that passes a threshold on a fresh test set.
 
 ## Run it
 
