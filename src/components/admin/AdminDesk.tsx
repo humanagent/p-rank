@@ -46,7 +46,15 @@ export function AdminDesk({ email, onSignOut }: { email: string; onSignOut: () =
     [load],
   );
 
-  const waitingCount = queue?.waitlist.reduce((n, g) => n + g.entries.length, 0) ?? 0;
+  // One queue: every entry a coach still has to decide. Outside the band first (furthest first), then the ones
+  // within it waiting for their draw. Every card has the clip and P-Rank's read.
+  const toDecide = queue
+    ? [
+        ...queue.needsLook.map((e) => ({ e, mode: "review" as const })),
+        ...queue.waitlist.flatMap((g) => g.entries.map((e) => ({ e, mode: "waitlist" as const }))),
+      ]
+    : [];
+  const confirmedCount = queue?.decided.filter((e) => e.waitlist?.status === "confirmed").length ?? 0;
 
   return (
     <main className={styles.shell}>
@@ -66,8 +74,8 @@ export function AdminDesk({ email, onSignOut }: { email: string; onSignOut: () =
       </header>
 
       <dl className={styles.counts}>
-        <div><dt>Needs a look</dt><dd>{queue?.needsLook.length ?? "–"}</dd></div>
-        <div><dt>On the waitlist</dt><dd>{queue ? waitingCount : "–"}</dd></div>
+        <div><dt>Needs a look</dt><dd>{queue ? toDecide.length : "–"}</dd></div>
+        <div><dt>Confirmed</dt><dd>{queue ? confirmedCount : "–"}</dd></div>
         <div><dt>Decided</dt><dd>{queue?.decided.length ?? "–"}</dd></div>
       </dl>
 
@@ -78,50 +86,15 @@ export function AdminDesk({ email, onSignOut }: { email: string; onSignOut: () =
         <>
           <section className={styles.section}>
             <h2 className={styles.h2}>Needs a look</h2>
-            <p className={styles.sub}>Claims outside the P-Rank band, furthest first. A coach decides.</p>
-            {queue.needsLook.length === 0 ? (
-              <p className={styles.empty}>Nothing waiting. Every claim so far sits within the band.</p>
+            <p className={styles.sub}>Every entry, outside the band first. Watch the rally, read P-Rank, then decide.</p>
+            {toDecide.length === 0 ? (
+              <p className={styles.empty}>Nothing to decide right now.</p>
             ) : (
               <div className={styles.grid}>
-                {queue.needsLook.map((e) => (
-                  <EntryCard key={e.id} entry={e} mine={e.email === email} busy={busy === e.id} onAct={act} />
+                {toDecide.map(({ e, mode }) => (
+                  <EntryCard key={e.id} entry={e} mine={e.email === email} busy={busy === e.id} mode={mode} onAct={act} />
                 ))}
               </div>
-            )}
-          </section>
-
-          <section className={styles.section}>
-            <h2 className={styles.h2}>Waitlist by draw</h2>
-            {queue.waitlist.length === 0 ? (
-              <p className={styles.empty}>No one waiting for a draw.</p>
-            ) : (
-              queue.waitlist.map((g) => (
-                <div key={g.category} className={styles.draw}>
-                  <h3 className={styles.h3}>{CATEGORY_NAME[g.category]} draw <span className={styles.muted}>· {g.entries.length}</span></h3>
-                  <ul className={styles.rows}>
-                    {g.entries.map((e) => {
-                      const mine = e.email === email;
-                      const off = busy === e.id || mine;
-                      return (
-                        <li key={e.id} className={styles.row}>
-                          <span className={styles.rowMain}>
-                            <span className={styles.email}>{e.email}</span>
-                            <span className={styles.muted}>P-Rank {bandText(e)}</span>
-                          </span>
-                          {mine ? (
-                            <span className={styles.muted}>Your entry</span>
-                          ) : (
-                            <span className={styles.actions}>
-                              <button className={styles.btn} disabled={off} onClick={() => void act(e.id, "confirm")}>Confirm</button>
-                              <button className={styles.btnGhost} disabled={off} onClick={() => void act(e.id, "decline")}>Decline</button>
-                            </span>
-                          )}
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </div>
-              ))
             )}
           </section>
 
