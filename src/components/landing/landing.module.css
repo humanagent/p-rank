@@ -1,4 +1,4 @@
-/* Landing in the rehearsal's look: cream paper, centered crest with tassel, watercolor hall,
+/* Landing: cream paper, centered crest with tassel, watercolor hall,
    thin-outlined uppercase buttons, serif headings. Mobile first (390 px, 16 px gutters). */
 
 .page {
@@ -163,14 +163,24 @@
 .stack {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  align-items: center;
   gap: 10px;
   width: 100%;
   max-width: 400px;
 }
 
 .stack :global(.btn) {
-  width: 100%;
+  width: auto;
+  max-width: 100%;
+}
+/* One line for the CTA when there's room; it wraps only on narrow phones. */
+@media (min-width: 480px) {
+  .stack {
+    max-width: none;
+  }
+  .stack :global(.btn) {
+    white-space: nowrap;
+  }
 }
 
 .stackLeft {

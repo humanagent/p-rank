@@ -85,7 +85,7 @@ export function Upload({ onCreated }: { onCreated: (e: Entry) => void }) {
   return (
     <div className={ui.stack}>
       <div className={ui.head}>
-        <span className={ui.eyebrow}>Step 1 · Your clip</span>
+        <span className={ui.eyebrow}>Your clip</span>
         <h2 className={ui.title}>Upload your rally</h2>
         <p className={ui.sub}>Up to thirty seconds of you playing: the more of your shots, the better.</p>
       </div>

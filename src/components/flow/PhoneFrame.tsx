@@ -1,4 +1,5 @@
-import type { ReactNode } from "react";
+"use client";
+import { type ReactNode, useEffect, useState } from "react";
 import Link from "next/link";
 import styles from "./PhoneFrame.module.css";
 
@@ -6,8 +7,22 @@ export const STEPS = ["Sign in", "Upload your clip", "Who are you", "Verifying",
 
 /**
  * Full screen on a phone. On desktop: the flow inside an iPhone-shaped frame, the Invitational on the left and the
- * steps on the right (wide windows only). The phone fits the window height; only its screen scrolls.
+ * steps on the right (wide windows only). The phone is laid out at a real iPhone's size (414×868, a 390 px screen)
+ * and scaled down as a whole to fit the window, so the content looks as it would on a phone. Only its screen scrolls.
  */
+const PHONE_H = 868;
+
+function usePhoneScale(): number {
+  const [scale, setScale] = useState(1);
+  useEffect(() => {
+    const fit = () => setScale(Math.min(1, (window.innerHeight - 48) / PHONE_H));
+    fit();
+    window.addEventListener("resize", fit);
+    return () => window.removeEventListener("resize", fit);
+  }, []);
+  return scale;
+}
+
 export function PhoneFrame({
   children,
   step,
@@ -19,8 +34,9 @@ export function PhoneFrame({
   dark?: boolean;
   onSignOut?: () => void;
 }) {
+  const scale = usePhoneScale();
   return (
-    <main className={styles.page}>
+    <main className={styles.page} style={{ ["--phone-scale" as string]: scale }}>
       <div className={styles.side}>
         <span className={styles.eyebrow}>Meridian Court · Summer Invitational</span>
         <h1 className={styles.big}>
@@ -38,9 +54,11 @@ export function PhoneFrame({
         )}
       </div>
 
-      <div className={styles.phone}>
-        <div className={styles.notch} aria-hidden />
-        <div className={`${styles.screen} ${dark ? styles.dark : ""}`}>{children}</div>
+      <div className={styles.phoneBox}>
+        <div className={styles.phone}>
+          <div className={styles.notch} aria-hidden />
+          <div className={`${styles.screen} ${dark ? styles.dark : ""}`}>{children}</div>
+        </div>
       </div>
 
       <ol className={`${styles.side} ${styles.progress}`} aria-label="Entry steps">

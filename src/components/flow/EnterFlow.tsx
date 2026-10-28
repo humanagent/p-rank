@@ -72,6 +72,8 @@ export function EnterFlow() {
     };
   }, [entryId, status]);
 
+  const startUpload = useCallback(() => setView({ kind: "upload" }), []);
+
   if (loading) {
     return (
       <PhoneFrame>
@@ -101,7 +103,7 @@ export function EnterFlow() {
           </button>
         )}
         {view.kind === "home" && (
-          <Home email={session.email} onOpen={open} onNew={() => setView({ kind: "upload" })} onSignOut={signOut} />
+          <Home email={session.email} onOpen={open} onNew={startUpload} onSignOut={signOut} />
         )}
         {view.kind === "upload" && <Upload onCreated={open} />}
         {view.kind === "entry" && (

@@ -15,6 +15,10 @@ const STATUS: Record<EntryStatus, string> = {
   failed: "Failed",
 };
 
+// A first-time entrant has nothing to list: go straight to the upload, once per page load (so "My entries" can
+// still come back to an empty home).
+let skippedEmptyHome = false;
+
 function chipFor(e: Entry): string {
   if (e.status !== "done") return STATUS[e.status];
   if (e.waitlist) return { waiting: "Waiting for the club", confirmed: "Confirmed", declined: "Declined" }[e.waitlist.status];
@@ -39,12 +43,20 @@ export function Home({
   useEffect(() => {
     let live = true;
     listEntries()
-      .then((list) => live && setEntries(list))
+      .then((list) => {
+        if (!live) return;
+        if (list.length === 0 && !skippedEmptyHome) {
+          skippedEmptyHome = true;
+          onNew();
+          return;
+        }
+        setEntries(list);
+      })
       .catch((e: Error) => live && setError(e.message));
     return () => {
       live = false;
     };
-  }, []);
+  }, [onNew]);
 
   return (
     <div className={ui.stack}>
@@ -72,8 +84,8 @@ export function Home({
             <button type="button" className={styles.row} onClick={() => onOpen(e)}>
               <span className={styles.meta}>
                 <span className={styles.date}>
-                  {new Date(e.createdAt).toLocaleDateString([], { month: "short", day: "numeric" })}{" "}
-                  {new Date(e.createdAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                  {new Date(e.createdAt).toLocaleDateString([], { month: "short", day: "numeric" })} ·{" "}
+                  {new Date(e.createdAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false })}
                 </span>
                 <span className={styles.claim}>{e.claimed ? `You said ${CATEGORY_NAME[e.claimed]}` : "No category yet"}</span>
               </span>

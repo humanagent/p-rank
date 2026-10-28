@@ -82,7 +82,7 @@ export function PickPlayer({ entry, onUpdated }: { entry: Entry; onUpdated: (e: 
   return (
     <div className={ui.stack}>
       <div>
-        <p className={ui.eyebrow}>Step 2 · Who are you</p>
+        <p className={ui.eyebrow}>Who are you</p>
         <h1 className={ui.title}>Which one is you?</h1>
       </div>
       <p className={ui.sub}>Tap yourself, then the category you play.</p>
