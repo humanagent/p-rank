@@ -118,7 +118,8 @@ export function PickPlayer({ entry, onUpdated }: { entry: Entry; onUpdated: (e: 
         })}
       </div>
 
-      <div className={styles.cats} role="radiogroup" aria-label="Your category">
+      <h2 className={ui.h3} id="cat-title">Which category do you play?</h2>
+      <div className={styles.cats} role="radiogroup" aria-labelledby="cat-title">
         {CATEGORIES.map((c) => (
           <button
             key={c}
@@ -134,9 +135,11 @@ export function PickPlayer({ entry, onUpdated }: { entry: Entry; onUpdated: (e: 
       </div>
 
       {error && <p className={ui.error}>{error}</p>}
-      <button type="button" className={ui.primary} disabled={!side || !claimed || busy} onClick={verify}>
-        {busy ? "Sending…" : "Verify"}
-      </button>
+      <div className={ui.actionBar}>
+        <button type="button" className={ui.primary} disabled={!side || !claimed || busy} onClick={verify}>
+          {busy ? "Sending…" : "Verify"}
+        </button>
+      </div>
     </div>
   );
 }

@@ -14,7 +14,7 @@
   align-self: flex-start;
   background: none;
   border: none;
-  color: var(--forest, #1f3d2b);
+  color: inherit; /* forest on the light screens, cream on the dark ones */
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;

@@ -111,3 +111,17 @@
   color: var(--muted, #5e5a52);
   text-align: center;
 }
+
+/* The step's main button stays on screen however tall the step is: pinned to the bottom of the scrolling
+   screen, on a cream fade, with room under it for the phone's rounded corner. */
+.actionBar {
+  position: sticky;
+  bottom: 0;
+  margin: 0 -22px -44px;
+  padding: 18px 22px 36px;
+  background: linear-gradient(to bottom, rgba(239, 233, 220, 0), var(--cream, #efe9dc) 28%);
+  z-index: 2;
+}
+.actionBar > * {
+  width: 100%;
+}

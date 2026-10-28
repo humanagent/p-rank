@@ -1,7 +1,6 @@
 "use client";
 import type { Entry } from "@/shared/types";
 import { clipUrl } from "./api";
-import { LiveLog } from "./LiveLog";
 import { PoweredBy } from "@/components/brand/PoweredBy";
 import ui from "./ui.module.css";
 import styles from "./Watching.module.css";
@@ -34,7 +33,7 @@ function checks(e: Entry): Check[] {
   return steps.map(([label, done], i) => ({ label, state: done ? "done" : i === firstOpen ? "active" : "todo" }));
 }
 
-/** Finding and Rating: the clip dimmed, the steps lighting up, then the live log. Sits on a dark Screen. */
+/** Finding and Rating: the clip dimmed and the steps lighting up off the worker's log. Sits on a dark Screen. */
 export function Watching({ entry, title, note }: { entry: Entry; title: string; note: string }) {
   return (
     <>
@@ -54,7 +53,6 @@ export function Watching({ entry, title, note }: { entry: Entry; title: string; 
           </li>
         ))}
       </ol>
-      <LiveLog log={entry.log} />
     </>
   );
 }
