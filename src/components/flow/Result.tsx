@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import { useRef, useState } from "react";
 import { CATEGORY_NAME, type Category, type Entry } from "@/shared/types";
 import { bandLabel } from "@/lib/categories";
@@ -18,10 +17,12 @@ export function Result({
   entry,
   onUpdated,
   onNewClip,
+  onHome,
 }: {
   entry: Entry;
   onUpdated: (e: Entry) => void;
   onNewClip: () => void;
+  onHome: () => void;
 }) {
   const video = useRef<HTMLVideoElement>(null);
   const [joining, setJoining] = useState<Category | null>(null);
@@ -49,7 +50,7 @@ export function Result({
     }
   }
 
-  if (entry.waitlist && entry.waitlist.status !== "declined") return <Success entry={entry} />;
+  if (entry.waitlist && entry.waitlist.status !== "declined") return <Success entry={entry} onHome={onHome} />;
 
   return (
     <div className={ui.stack}>
@@ -133,7 +134,7 @@ export function Result({
 const SUCCESS_STATUS = { waiting: "Waiting for the club", confirmed: "Confirmed", declined: "Declined" } as const;
 
 /** After joining: the club card for the draw, minimal, and what happens next. */
-function Success({ entry }: { entry: Entry }) {
+function Success({ entry, onHome }: { entry: Entry; onHome: () => void }) {
   const w = entry.waitlist!;
   const confirmed = w.status === "confirmed";
   return (
@@ -157,9 +158,9 @@ function Success({ entry }: { entry: Entry }) {
           : "A club coach reviews P-Rank's read and confirms your spot before the draw is set. We'll email you."}
       </p>
       <PoweredBy />
-      <Link className={ui.secondary} href="/">
-        Back to the Invitational
-      </Link>
+      <button type="button" className={ui.secondary} onClick={onHome}>
+        Back to my entries
+      </button>
     </div>
   );
 }
