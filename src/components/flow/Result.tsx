@@ -7,8 +7,6 @@ import { clipUrl, joinWaitlist } from "./api";
 import ui from "./ui.module.css";
 import styles from "./Result.module.css";
 
-const WAITLIST_LABEL = { waiting: "Waiting for the club", confirmed: "Confirmed", declined: "Declined" } as const;
-
 function fmt(s: number) {
   const m = Math.floor(s / 60);
   const r = Math.floor(s % 60);
@@ -19,10 +17,12 @@ export function Result({
   entry,
   onUpdated,
   onNewClip,
+  onHome,
 }: {
   entry: Entry;
   onUpdated: (e: Entry) => void;
   onNewClip: () => void;
+  onHome: () => void;
 }) {
   const video = useRef<HTMLVideoElement>(null);
   const [joining, setJoining] = useState<Category | null>(null);
@@ -30,7 +30,6 @@ export function Result({
   const a = entry.analysis;
   const rated = !!a && a.category !== null && !!a.band;
   const within = entry.verdict === "within" && rated;
-  const draws = entry.draws ?? [];
 
   function seek(at: number) {
     const v = video.current;
@@ -50,6 +49,8 @@ export function Result({
       setJoining(null);
     }
   }
+
+  if (entry.waitlist && entry.waitlist.status !== "declined") return <Success entry={entry} onHome={onHome} />;
 
   return (
     <div className={ui.stack}>
@@ -110,41 +111,56 @@ export function Result({
         </section>
       )}
 
-      {/* One row per draw P-Rank would accept; joining puts you on its waitlist and the club confirms the spot. */}
-      <section className={styles.drawList}>
-        <h2 className={styles.h2}>{within ? "Waitlists you can join" : "Waitlists P-Rank would accept"}</h2>
-        {draws.length === 0 && <p className={styles.why}>No draw to join from this clip yet. A coach will review it.</p>}
-        {draws.map((c) => {
-          const mine = entry.waitlist?.category === c ? entry.waitlist : undefined;
-          return (
-            <div key={c} className={styles.drawRow}>
-              <span>{CATEGORY_NAME[c]} category</span>
-              {mine ? (
-                <span className={styles.drawStatus}>{WAITLIST_LABEL[mine.status]}</span>
-              ) : (
-                <button
-                  type="button"
-                  className={styles.joinBtn}
-                  disabled={joining !== null || !!entry.waitlist}
-                  onClick={() => join(c)}
-                >
-                  {joining === c ? "Joining…" : "Join waitlist"}
-                </button>
-              )}
-            </div>
-          );
-        })}
-        {entry.waitlist && (
-          <span className={styles.footnote}>The club confirms every spot before the draw is set.</span>
-        )}
-        {error && <p className={ui.error}>{error}</p>}
-      </section>
+      {/* The draw of the category you claimed, when P-Rank's band agrees. Outside it, a coach decides first. */}
+      {within && entry.claimed && (
+        <section className={styles.drawList}>
+          <button type="button" className={ui.primary} disabled={joining !== null} onClick={() => join(entry.claimed!)}>
+            {joining ? "Joining…" : `Enter the ${CATEGORY_NAME[entry.claimed]} category draw`}
+          </button>
+          <span className={styles.footnote}>You join its waitlist; the club confirms every spot before the draw is set.</span>
+          {error && <p className={ui.error}>{error}</p>}
+        </section>
+      )}
 
       {!within && (
         <button type="button" className={ui.secondary} onClick={onNewClip}>
           Add another clip
         </button>
       )}
+    </div>
+  );
+}
+
+const SUCCESS_STATUS = { waiting: "Waiting for the club", confirmed: "Confirmed", declined: "Declined" } as const;
+
+/** After joining: the club card for the draw, minimal, and what happens next. */
+function Success({ entry, onHome }: { entry: Entry; onHome: () => void }) {
+  const w = entry.waitlist!;
+  const confirmed = w.status === "confirmed";
+  return (
+    <div className={ui.stack}>
+      <p className={ui.eyebrow}>{confirmed ? "You're in the draw" : "You're on the waitlist"}</p>
+      <h1 className={ui.title}>{confirmed ? "See you on court" : "Entry sent"}</h1>
+      <div className={styles.memberCard} role="img" aria-label={`${CATEGORY_NAME[w.category]} category, ${SUCCESS_STATUS[w.status]}`}>
+        <div className={styles.memberRow}>
+          <span className={styles.memberClub}>Meridian Court</span>
+          <span className={styles.memberM}>M</span>
+        </div>
+        <span className={styles.memberCat}>{CATEGORY_NAME[w.category]} category</span>
+        <div className={styles.memberFoot}>
+          <span>Summer Invitational</span>
+          <span>{SUCCESS_STATUS[w.status]}</span>
+        </div>
+      </div>
+      <p className={ui.sub}>
+        {confirmed
+          ? "A club coach confirmed your spot. We'll email you the draw."
+          : "A club coach reviews P-Rank's read and confirms your spot before the draw is set. We'll email you."}
+      </p>
+      <PoweredBy />
+      <button type="button" className={ui.secondary} onClick={onHome}>
+        Back to my entries
+      </button>
     </div>
   );
 }
