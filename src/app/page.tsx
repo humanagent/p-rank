@@ -2,6 +2,7 @@ import Link from "next/link";
 import { PoweredBy } from "@/components/brand/PoweredBy";
 import { Crest } from "@/components/landing/Crest";
 import { Hall } from "@/components/landing/Hall";
+import { MemberCard } from "@/components/landing/MemberCard";
 import s from "@/components/landing/landing.module.css";
 
 const DRAWS = [
@@ -124,19 +125,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className={s.card} role="img" aria-label="A player's card for the 5th category draw, confirmed by the club">
-            <div className={s.cardRow}>
-              <span className={s.cardClub}>Meridian Court</span>
-              <span className={s.cardM}>M</span>
-            </div>
-            <div className={s.cardMid}>
-              <span className={s.cardCat}>5th category</span>
-            </div>
-            <div className={s.cardFoot}>
-              <span>Summer Invitational</span>
-              <span>Confirmed</span>
-            </div>
-          </div>
+          <MemberCard />
         </section>
       </main>
 
