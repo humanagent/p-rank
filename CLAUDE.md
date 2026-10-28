@@ -25,7 +25,7 @@ Secrets: `infisical run -- bun dev`.
 | lead | `src/shared/`, `CLAUDE.md`, `package.json`, `src/app/layout.tsx`, `src/app/globals.css`, `amplify/` |
 | A Auth | `src/server/auth/`, `src/app/api/auth/`, `src/components/auth/` |
 | B Upload + store | `src/server/storage/`, `src/server/store/`, `src/app/api/upload-url/`, `src/app/api/clips/` |
-| C Verifier | `src/server/verifier/`, `src/lib/rubric.ts`, `src/app/api/entries/` |
+| C Verifier | `src/server/verifier/`, `src/lib/rubric.ts`, `src/app/api/audit/` |
 | D Scoring | `src/lib/score.ts`, `src/lib/sides.ts`, `src/lib/categories.ts`, `src/lib/queue.ts`, `src/lib/*.test.ts` |
 | E Entry flow | `src/app/enter/`, `src/components/flow/` |
 | F Landing | `src/app/page.tsx`, `src/components/landing/` |
