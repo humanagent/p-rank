@@ -4,11 +4,12 @@ import { useCallback, useEffect, useState } from "react";
 import { type Category, CATEGORY_NAME, type Entry } from "@/shared/types";
 import { EntryCard } from "./EntryCard";
 import { bandText, fmtTime, postReview, type Action } from "./util";
-import styles from "./club.module.css";
+import styles from "./admin.module.css";
+import { PoweredBy } from "@/components/brand/PoweredBy";
 
 type Queue = { needsLook: Entry[]; waitlist: { category: Category; entries: Entry[] }[]; decided: Entry[] };
 
-export function ClubDesk({ email, onSignOut }: { email: string; onSignOut: () => void | Promise<void> }) {
+export function AdminDesk({ email, onSignOut }: { email: string; onSignOut: () => void | Promise<void> }) {
   const [queue, setQueue] = useState<Queue | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState<string | null>(null);
@@ -53,7 +54,8 @@ export function ClubDesk({ email, onSignOut }: { email: string; onSignOut: () =>
         <div className={styles.brand}>
           <span className={styles.seal} aria-hidden>M</span>
           <div>
-            <p className={styles.crest}>Meridian Court Club · Club desk</p>
+            <p className={styles.crest}>Meridian Court Club · Admin</p>
+            <PoweredBy />
             <h1 className={styles.h1}>Summer Invitational entries</h1>
           </div>
         </div>

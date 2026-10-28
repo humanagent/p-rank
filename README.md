@@ -12,7 +12,7 @@ Deployed: https://d1b9aupggweoi.cloudfront.net
 1. `/`: the club's landing page.
 2. `/enter`: sign in with an email code, upload a clip, pick yourself from the players found, claim a category,
    get the verdict and the draws you can join (or a waitlist).
-3. `/club`: the club desk. Coaches see the queue, approve or reject entries outside the band, confirm or decline
+3. `/admin`: the coaches' desk (internal, not linked from the landing). Coaches see the queue, approve or reject entries outside the band, confirm or decline
    waitlists. Nobody can review their own entry.
 
 ## Run it locally
@@ -23,7 +23,7 @@ infisical run -- bun dev            # or: OPENROUTER_API_KEY=... bun dev
 ```
 
 Open http://localhost:3000. Local mode (no AWS) needs only `OPENROUTER_API_KEY`: clips and entries stay on the
-machine, and the sign-in code is shown on screen instead of emailed. Club desk access goes to the emails in
+machine, and the sign-in code is shown on screen instead of emailed. Admin access goes to the emails in
 `CLUB_EMAILS` (comma list or `@domain`), default `@meridian.club`, so `coach@meridian.club` is a coach.
 Model: `PRANK_MODEL`, default `google/gemini-3.8-flash` via OpenRouter.
 
@@ -36,9 +36,9 @@ Tests: `bun test src` and `bun test eval`.
 - **A tennis clip gets rejected:** upload a tennis (or pickleball, squash) clip; the find step says it is not
   padel and the entry stops there.
 - **Claim 2 below:** on the same clip, claim two categories weaker than the band; it lands outside and goes to the
-  club desk.
-- **Club desk:** sign in as `coach@meridian.club`, open `/club`, approve or reject the entry outside the band.
-- **Self-review is blocked:** enter a clip as `coach@meridian.club`, then try to review it from `/club` (403).
+  admin.
+- **Admin:** sign in as `coach@meridian.club`, open `/admin`, approve or reject the entry outside the band.
+- **Self-review is blocked:** enter a clip as `coach@meridian.club`, then try to review it from `/admin` (403).
 
 ## How it works
 

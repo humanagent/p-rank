@@ -1,6 +1,7 @@
 "use client";
 import { type ReactNode, useEffect, useState } from "react";
 import Link from "next/link";
+import { PoweredBy } from "@/components/brand/PoweredBy";
 import styles from "./PhoneFrame.module.css";
 
 export const STEPS = ["Sign in", "Upload your clip", "Who are you", "Verifying", "Your result"];
@@ -43,6 +44,7 @@ export function PhoneFrame({
           Enter the <i>Invitational</i>
         </h1>
         <p>Players enter from their phone, right after filming. On desktop the same flow runs inside the phone.</p>
+        <PoweredBy />
         <span className={styles.hint}>Open this link on a phone for the full-screen version.</span>
         <Link href="/" className={styles.hint}>
           Back to the Invitational

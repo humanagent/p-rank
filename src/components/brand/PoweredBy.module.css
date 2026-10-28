@@ -1,0 +1,30 @@
+.mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--muted, #6b675e);
+}
+.mark strong {
+  font-weight: 700;
+  color: var(--forest, #1f3b2d);
+}
+.beta {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 999px;
+  border: 1px solid var(--bronze, #a87b45);
+  color: var(--bronze-ink, #7d5a2e);
+}
+.dark,
+.dark strong {
+  color: #dfe6dc;
+}
+.dark .beta {
+  color: #d9b77e;
+  border-color: #d9b77e;
+}

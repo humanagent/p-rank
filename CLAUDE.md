@@ -29,5 +29,5 @@ Secrets: `infisical run -- bun dev`.
 | D Scoring | `src/lib/score.ts`, `src/lib/sides.ts`, `src/lib/categories.ts`, `src/lib/queue.ts`, `src/lib/*.test.ts` |
 | E Entry flow | `src/app/enter/`, `src/components/flow/` |
 | F Landing | `src/app/page.tsx`, `src/components/landing/` |
-| G Club desk | `src/app/club/`, `src/app/api/review/`, `src/components/club/` |
+| G Admin | `src/app/admin/`, `src/app/api/review/`, `src/components/admin/` |
 | H Eval + docs | `eval/`, `README.md` |
