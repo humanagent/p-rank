@@ -1,0 +1,66 @@
+.clip {
+  border-radius: 24px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: #0f1913;
+}
+.clip video {
+  display: block;
+  width: 100%;
+  height: auto; /* the clip's own ratio, never cropped or stretched */
+  opacity: 0.45;
+}
+.title {
+  color: var(--cream, #f5efe3);
+}
+.note {
+  font-size: 13px;
+  color: #c8d1c5;
+}
+.checklist {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  font-size: 15px;
+  color: var(--cream, #f5efe3);
+}
+.checklist li {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.checklist li[data-state="todo"] {
+  color: #8fa294;
+}
+.dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 700;
+}
+[data-state="done"] .dot {
+  background: var(--bronze, #a87b45);
+  color: var(--forest, #1f3b2d);
+}
+[data-state="active"] .dot {
+  border: 2px solid var(--bronze, #a87b45);
+  animation: pulse 1.2s ease-in-out infinite;
+}
+[data-state="todo"] .dot {
+  border: 2px solid #4f6b5a;
+}
+@keyframes pulse {
+  50% {
+    opacity: 0.35;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-state="active"] .dot {
+    animation: none;
+  }
+}

@@ -1,0 +1,37 @@
+.log {
+  list-style: none;
+  max-height: 170px;
+  overflow-y: auto;
+  padding: 12px;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.18);
+  color: #c8d1c5;
+  font-family: var(--font-geist-mono, ui-monospace, Menlo, monospace);
+  font-size: 12px;
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.line {
+  display: grid;
+  /* time and step on one row, the message under them at full width (the phone is narrow) */
+  grid-template-columns: auto 1fr;
+  column-gap: 8px;
+  align-items: baseline;
+}
+.time {
+  opacity: 0.55;
+}
+.step {
+  color: var(--bronze, #c79a5a);
+  font-weight: 600;
+}
+.msg {
+  grid-column: 1 / -1;
+  overflow-wrap: anywhere;
+  opacity: 0.9;
+}
+.empty {
+  opacity: 0.6;
+}
