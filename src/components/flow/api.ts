@@ -21,15 +21,15 @@ const post = (url: string, body?: unknown) =>
 
 export const clipUrl = (key: string) => `/api/clips/${key.split("/").map(encodeURIComponent).join("/")}`;
 
-export const listEntries = () => fetch("/api/entries", { cache: "no-store" }).then((r) => json<Entry[]>(r));
+export const listEntries = () => fetch("/api/audit", { cache: "no-store" }).then((r) => json<Entry[]>(r));
 export const getEntry = (id: string) =>
-  fetch(`/api/entries/${encodeURIComponent(id)}`, { cache: "no-store" }).then((r) => json<Entry>(r));
-export const createEntry = (clipKey: string) => post("/api/entries", { clipKey }).then((r) => json<Entry>(r));
+  fetch(`/api/audit/${encodeURIComponent(id)}`, { cache: "no-store" }).then((r) => json<Entry>(r));
+export const createEntry = (clipKey: string) => post("/api/audit", { clipKey }).then((r) => json<Entry>(r));
 export const pickMe = (id: string, side: Side, claimed: Category) =>
-  post(`/api/entries/${encodeURIComponent(id)}/me`, { side, claimed }).then((r) => json<Entry>(r));
-export const retryEntry = (id: string) => post(`/api/entries/${encodeURIComponent(id)}/retry`).then((r) => json<Entry>(r));
+  post(`/api/audit/${encodeURIComponent(id)}/me`, { side, claimed }).then((r) => json<Entry>(r));
+export const retryEntry = (id: string) => post(`/api/audit/${encodeURIComponent(id)}/retry`).then((r) => json<Entry>(r));
 export const joinWaitlist = (id: string, category: Category) =>
-  post(`/api/entries/${encodeURIComponent(id)}/waitlist`, { category }).then((r) => json<Entry>(r));
+  post(`/api/audit/${encodeURIComponent(id)}/waitlist`, { category }).then((r) => json<Entry>(r));
 export const uploadUrl = (contentType: string, size: number) =>
   post("/api/upload-url", { contentType, size }).then((r) => json<{ key: string; url: string; method: "PUT" }>(r));
 

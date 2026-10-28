@@ -5,7 +5,7 @@ An entrant uploads a short padel rally, picks themselves in it and claims a cate
 P-Rank rates that player and says whether the claim is within ±1 of the band it saw. **A coach confirms every
 entry; nothing is auto-approved.** The model only describes what it sees; code merges the answers and decides.
 
-Deployed: [TK]
+Deployed: https://d1b9aupggweoi.cloudfront.net
 
 ## The flow
 
@@ -79,6 +79,23 @@ over clips, Spearman, the not-padel gate, latency p50/p90, and % outside the ban
 | Within ±1 (median vs label) | [TK] | [TK] |
 | Negatives rejected | [TK] | n/a (no negatives) |
 | Latency per clip, p50 | [TK] | [TK] |
+
+## Deploy
+
+AWS `sa-east-1`, Amplify Gen 2 (`amplify/`): Cognito (email codes, no passwords), S3 (clips, presigned PUT/GET,
+deleted after 30 days), DynamoDB (one item per entry, compare-and-set writes), the verifier as a Lambda invoked
+asynchronously, the Next app on CloudFront + Lambda, CloudWatch (one JSON line per step). The OpenRouter key lives in
+SSM as a SecureString and only the worker can read it. Secrets come from Infisical.
+
+```sh
+infisical run -- sh -c 'aws ssm put-parameter --region sa-east-1 --type SecureString --overwrite \
+  --name /amplify/p-rank-take-home/openrouter-api-key --value "$OPENROUTER_API_KEY"'
+yes | infisical run -- env npm_config_user_agent=npm/10 bunx ampx deploy --identifier p-rank-take-home
+```
+
+Everything runs on Bun except two things Bun can't do here: the Amplify CLI refuses Bun as a package manager (the
+`npm_config_user_agent` override gets past that check; the project itself stays on Bun), and the Lambdas run on
+AWS's Node runtime.
 
 ## What is incomplete
 

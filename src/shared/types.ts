@@ -63,12 +63,12 @@ export type Session = { email: string; isClub: boolean };
 // POST /api/auth/signout -> { ok }
 // GET  /api/auth/me -> Session | 401
 // POST /api/upload-url { contentType, size } -> { key, url, method: "PUT" }
-// POST /api/entries { clipKey } -> Entry                       creates the entry and starts find in the background
-// GET  /api/entries -> Entry[]                                 the signed-in entrant's entries, newest first
-// GET  /api/entries/:id -> Entry                               owner or club only
-// POST /api/entries/:id/me { side, claimed } -> Entry          starts the 3 rate calls in the background
-// POST /api/entries/:id/retry -> Entry                         re-runs the failed step
-// POST /api/entries/:id/waitlist { category } -> Entry         only a category in entry.draws
+// POST /api/audit { clipKey } -> Entry                       creates the entry and starts find in the background
+// GET  /api/audit -> Entry[]                                 the signed-in entrant's entries, newest first
+// GET  /api/audit/:id -> Entry                               owner or club only
+// POST /api/audit/:id/me { side, claimed } -> Entry          starts the 3 rate calls in the background
+// POST /api/audit/:id/retry -> Entry                         re-runs the failed step
+// POST /api/audit/:id/waitlist { category } -> Entry         only a category in entry.draws
 // GET  /api/clips/:key -> the clip bytes (local mode) or a redirect to a presigned GET
 // GET  /api/review -> Entry[]                                  club only; queue order is in src/lib/queue.ts
 // POST /api/review/:id { action: "approve" | "reject" | "confirm" | "decline", note? } -> Entry   club only, never your own entry

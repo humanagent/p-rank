@@ -1,4 +1,4 @@
-// Shared helpers for the /api/entries routes.
+// Shared helpers for the /api/audit routes.
 import type { Entry, Session } from "@/shared/types";
 import { store } from "@/server/store";
 

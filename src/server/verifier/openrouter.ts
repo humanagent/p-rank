@@ -25,9 +25,26 @@ async function once(body: string, key: string): Promise<Response> {
   });
 }
 
+// In AWS the key lives in SSM as a SecureString (OPENROUTER_KEY_PARAM names it), read once per Lambda container.
+// Locally it comes from the environment, injected by Infisical.
+let cachedKey: Promise<string> | undefined;
+function apiKey(): Promise<string> {
+  const param = process.env.OPENROUTER_KEY_PARAM;
+  if (!param) {
+    const key = process.env.OPENROUTER_API_KEY;
+    if (!key) throw new ModelError("OPENROUTER_API_KEY is not set");
+    return Promise.resolve(key);
+  }
+  cachedKey ??= import("@aws-sdk/client-ssm").then(async ({ SSMClient, GetParameterCommand }) => {
+    const r = await new SSMClient({}).send(new GetParameterCommand({ Name: param, WithDecryption: true }));
+    if (!r.Parameter?.Value) throw new ModelError(`SSM parameter ${param} is empty`);
+    return r.Parameter.Value;
+  });
+  return cachedKey;
+}
+
 export async function ask<T>(prompt: string, schema: object, video: Buffer, mime: string): Promise<AskResult<T>> {
-  const key = process.env.OPENROUTER_API_KEY;
-  if (!key) throw new ModelError("OPENROUTER_API_KEY is not set");
+  const key = await apiKey();
   const m = model();
   const body = JSON.stringify({
     model: m,

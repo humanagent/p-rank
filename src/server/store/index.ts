@@ -11,7 +11,14 @@ export type Store = {
   appendLog(id: string, step: string, msg: string): Promise<Entry>;
 };
 
-const newestFirst = (a: Entry, b: Entry) => b.createdAt.localeCompare(a.createdAt);
+// The DynamoDB item's version is a storage detail; callers never see it.
+function withoutVersion(item: Record<string, unknown>): Entry {
+  const { _v, ...e } = item;
+  void _v;
+  return e as Entry;
+}
+
+const newestFirst =(a: Entry, b: Entry) => b.createdAt.localeCompare(a.createdAt);
 const sameEmail = (a: string, b: string) => a.trim().toLowerCase() === b.trim().toLowerCase();
 
 function logLine(id: string, step: string, msg: string) {
@@ -93,7 +100,7 @@ function createDynamoStore(table: string): Store {
     let ExclusiveStartKey: Record<string, unknown> | undefined;
     do {
       const r = await (await doc()).send(new ScanCommand({ TableName: table, ExclusiveStartKey }));
-      out.push(...((r.Items ?? []) as Entry[]));
+      out.push(...(r.Items ?? []).map(withoutVersion));
       ExclusiveStartKey = r.LastEvaluatedKey;
     } while (ExclusiveStartKey);
     return out;
@@ -107,7 +114,7 @@ function createDynamoStore(table: string): Store {
     async get(id) {
       const { GetCommand } = await lib();
       const r = await (await doc()).send(new GetCommand({ TableName: table, Key: { id }, ConsistentRead: true }));
-      return (r.Item as Entry | undefined) ?? null;
+      return r.Item ? withoutVersion(r.Item) : null;
     },
     async list() {
       return (await scanAll()).sort(newestFirst);
@@ -115,14 +122,33 @@ function createDynamoStore(table: string): Store {
     async listByEmail(email) {
       return (await scanAll()).filter((e) => sameEmail(e.email, email)).sort(newestFirst);
     },
-    // Read-modify-write, last writer wins. Concurrent updates to one entry are rare here
-    // (one pipeline per entry); add a version attribute + ConditionExpression if that changes.
+    // Compare-and-set: every item carries a version (_v); a write lands only if nobody wrote since we read it,
+    // else re-read and re-apply fn. The 3 rate samples append log lines at the same time, so this matters.
     async update(id, fn) {
-      const cur = await store.get(id);
-      if (!cur) throw new Error(`entry ${id} not found`);
-      const next = fn(cur);
-      await store.put(next);
-      return next;
+      const { GetCommand, PutCommand } = await lib();
+      const client = await doc();
+      for (let attempt = 0; attempt < 8; attempt++) {
+        const r = await client.send(new GetCommand({ TableName: table, Key: { id }, ConsistentRead: true }));
+        if (!r.Item) throw new Error(`entry ${id} not found`);
+        const { _v, ...cur } = r.Item as Entry & { _v?: number };
+        const next = fn(cur as Entry);
+        try {
+          await client.send(
+            new PutCommand({
+              TableName: table,
+              Item: { ...next, _v: (_v ?? 0) + 1 },
+              ConditionExpression: _v === undefined ? "attribute_not_exists(#v)" : "#v = :v",
+              ExpressionAttributeNames: { "#v": "_v" },
+              ...(_v === undefined ? {} : { ExpressionAttributeValues: { ":v": _v } }),
+            }),
+          );
+          return next;
+        } catch (err) {
+          if ((err as { name?: string }).name !== "ConditionalCheckFailedException") throw err;
+          await new Promise((res) => setTimeout(res, 20 + Math.random() * 80 * (attempt + 1)));
+        }
+      }
+      throw new Error(`entry ${id}: too many concurrent writes`);
     },
     async appendLog(id, step, msg) {
       const line = logLine(id, step, msg);
