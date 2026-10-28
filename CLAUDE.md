@@ -10,7 +10,6 @@ Secrets: `infisical run -- bun dev`.
 
 ## Rules
 
-- **Never commit, push, merge.** Fabri commits.
 - The contract is `src/shared/types.ts`. Only the lead changes it; ask the lead if you need a change.
 - Stay in your folders (table below). Need something from another agent's folder? Import it, or leave a
   `// TODO(<agent>):` and tell the lead.
