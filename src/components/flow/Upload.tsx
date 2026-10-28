@@ -148,9 +148,11 @@ export function Upload({ onCreated }: { onCreated: (e: Entry) => void }) {
         </span>
       )}
       <div className={ui.spacer} />
-      <button type="button" className={ui.primary} disabled={!picked || busy} onClick={submit}>
-        {busy ? "Uploading…" : "Continue"}
-      </button>
+      <div className={ui.actionBar}>
+        <button type="button" className={ui.primary} disabled={!picked || busy} onClick={submit}>
+          {busy ? "Uploading…" : "Continue"}
+        </button>
+      </div>
     </div>
   );
 }

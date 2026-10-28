@@ -19,6 +19,7 @@
   display: none;
 }
 .screen {
+  color: var(--forest, #1f3d2b);
   flex: 1;
   min-height: 100dvh;
   display: flex;
@@ -27,6 +28,7 @@
 }
 .dark {
   background: var(--forest, #1f3b2d);
+  color: var(--cream, #efe9dc);
 }
 @media (min-width: 640px) {
   .page {

@@ -16,11 +16,11 @@
 .h2 {
   font-family: var(--serif, Georgia, serif);
   color: var(--forest, #1f3d2b);
-  font-size: 18px;
+  font-size: 21px;
   font-weight: 500;
 }
 .why {
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.5;
   color: var(--ink, #1c1c1a);
 }
@@ -57,11 +57,11 @@
 }
 .stroke {
   font-weight: 600;
-  font-size: 14px;
+  font-size: 16px;
   text-transform: capitalize;
 }
 .tech {
-  font-size: 13px;
+  font-size: 15px;
   opacity: 0.75;
 }
 .draws {
@@ -73,18 +73,18 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 15px;
+  font-size: 17px;
   color: var(--forest, #1f3d2b);
 }
 
 .verdict { border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 6px; }
 .ok { background: var(--forest, #1f3b2d); color: var(--cream, #f5efe3); border: 1px solid var(--bronze, #a87b45); }
 .wait { background: var(--cream-2, #ebe2d0); border: 1px dashed var(--bronze, #a87b45); color: var(--forest, #1f3b2d); }
-.vEyebrow { font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; }
+.vEyebrow { font-size: 13px; letter-spacing: 0.28em; text-transform: uppercase; }
 .ok .vEyebrow { color: #d9b77e; }
 .wait .vEyebrow { color: var(--bronze-ink, #7d5a2e); }
-.big { font-family: var(--serif, Georgia, serif); font-size: 40px; font-weight: 600; line-height: 1; }
-.small { font-size: 13px; }
+.big { font-family: var(--serif, Georgia, serif); font-size: 46px; font-weight: 600; line-height: 1; }
+.small { font-size: 15px; }
 .ok .small { color: #dfe6dc; }
 
 .drawList { display: flex; flex-direction: column; gap: 10px; }
@@ -105,7 +105,7 @@
   border-radius: 999px;
   padding: 9px 16px;
   font: inherit;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
   background: var(--forest, #1f3b2d);
   color: var(--cream, #f5efe3);
@@ -113,5 +113,5 @@
   white-space: nowrap;
 }
 .joinBtn:disabled { opacity: 0.45; cursor: default; }
-.drawStatus { font-size: 13px; font-weight: 500; color: var(--muted, #6b675e); white-space: nowrap; }
-.footnote { font-size: 12px; color: var(--muted, #6b675e); }
+.drawStatus { font-size: 15px; font-weight: 500; color: var(--muted, #6b675e); white-space: nowrap; }
+.footnote { font-size: 14px; color: var(--muted, #6b675e); }

@@ -13,7 +13,7 @@
   margin: 0 0 8px;
   font-family: var(--serif, Georgia, "Times New Roman", serif);
   font-weight: 500;
-  font-size: 1.6rem;
+  font-size: 1.84rem;
   color: var(--forest, #1e3b2f);
 }
 .form {
@@ -23,21 +23,21 @@
 }
 .hint {
   margin: 0;
-  font-size: 0.92rem;
+  font-size: 1.06rem;
   opacity: 0.8;
 }
 .label {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  font-size: 0.8rem;
+  font-size: 0.92rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--forest, #1e3b2f);
 }
 .input {
   font: inherit;
-  font-size: 1rem;
+  font-size: 1.15rem;
   letter-spacing: normal;
   text-transform: none;
   padding: 10px 12px;
@@ -52,7 +52,7 @@
   border-color: transparent;
 }
 .code {
-  font-size: 1.3rem;
+  font-size: 1.49rem;
   letter-spacing: 0.3em;
   text-align: center;
 }
@@ -76,7 +76,7 @@
 .dev {
   margin: 0;
   padding: 8px 10px;
-  font-size: 0.85rem;
+  font-size: 0.98rem;
   border-left: 3px solid var(--bronze, #a7814a);
   background: color-mix(in srgb, var(--bronze, #a7814a) 12%, transparent);
 }
@@ -87,7 +87,7 @@
 }
 .link {
   font: inherit;
-  font-size: 0.85rem;
+  font-size: 0.98rem;
   background: none;
   border: none;
   padding: 0;
@@ -100,6 +100,6 @@
 }
 .error {
   margin: 14px 0 0;
-  font-size: 0.9rem;
+  font-size: 1.03rem;
   color: #9b2c2c;
 }

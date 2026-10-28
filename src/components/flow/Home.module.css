@@ -10,7 +10,7 @@
   background: none;
   border: none;
   color: var(--forest, #1f3d2b);
-  font-size: 13px;
+  font-size: 15px;
   text-decoration: underline;
   cursor: pointer;
   padding: 6px 0;
@@ -19,7 +19,7 @@
 .h2 {
   font-family: var(--serif, Georgia, serif);
   color: var(--forest, #1f3d2b);
-  font-size: 19px;
+  font-size: 22px;
   font-weight: 500;
   margin-top: 8px;
 }
@@ -52,9 +52,9 @@
 .date {
   white-space: nowrap;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 16px;
 }
 .claim {
-  font-size: 13px;
+  font-size: 15px;
   opacity: 0.7;
 }
