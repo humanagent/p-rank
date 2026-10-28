@@ -2,24 +2,24 @@
 .title {
   font-family: var(--serif, Georgia, serif);
   color: var(--forest, #1f3b2d);
-  font-size: 34px; /* the phone is laid out at real size and scaled as a whole */
+  font-size: 39px; /* the phone is laid out at real size and scaled as a whole */
   font-weight: 500;
   line-height: 1.02;
 }
 .h3 {
   font-family: var(--serif, Georgia, serif);
   color: var(--forest, #1f3b2d);
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 600;
   line-height: 1.1;
 }
 .sub {
   color: var(--muted, #5e5a52);
-  font-size: 15px;
+  font-size: 17px;
   line-height: 1.5;
 }
 .muted {
-  font-size: 13px;
+  font-size: 15px;
   color: var(--muted, #5e5a52);
 }
 .primary,
@@ -31,7 +31,7 @@
   padding: 17px 24px;
   border-radius: 999px;
   font-family: var(--sans, inherit);
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 600;
   letter-spacing: 0.02em;
   cursor: pointer;
@@ -54,7 +54,7 @@
 }
 .small {
   padding: 9px 16px;
-  font-size: 13px;
+  font-size: 15px;
   background: var(--forest, #1f3b2d);
   color: var(--cream, #f5efe3);
 }
@@ -67,7 +67,7 @@
 .error {
   display: block;
   color: var(--danger, #8a2d1f);
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.45;
 }
 .error::first-letter {
@@ -78,7 +78,7 @@
   align-items: center;
   padding: 3px 10px;
   border-radius: 999px;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.02em;
   border: 1px solid var(--bronze, #a87b45);
@@ -86,7 +86,7 @@
   white-space: nowrap;
 }
 .eyebrow {
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--bronze-ink, #7d5a2e);
@@ -107,7 +107,7 @@
   flex: 1;
 }
 .footnote {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--muted, #5e5a52);
   text-align: center;
 }

@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  padding: 20px 22px 28px;
+  padding: 20px 22px 44px; /* the last button clears the phone's rounded corner */
 }
 .center {
   flex: 1;
@@ -15,7 +15,7 @@
   background: none;
   border: none;
   color: var(--forest, #1f3d2b);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   cursor: pointer;
   padding: 4px 0;

@@ -38,17 +38,17 @@
 }
 .choose {
   font-family: var(--serif, Georgia, serif);
-  font-size: 24px;
+  font-size: 28px;
 }
 .dragHint {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--muted, #5e5a52);
 }
 .bullets {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  font-size: 13px;
+  font-size: 15px;
   color: var(--muted, #5e5a52);
 }
 .bullets div {
