@@ -1,5 +1,4 @@
 // The Meridian Court Club crest: an oval of laurels, the club name, and a tassel hanging below.
-// Ported from the rehearsal crest.
 type Props = { width?: number; className?: string };
 
 export function Crest({ width = 96, className }: Props) {

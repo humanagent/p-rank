@@ -1,8 +1,8 @@
-/* Shared pieces, ported from the rehearsal's flow.css. */
+/* Shared pieces of the entry flow. */
 .title {
   font-family: var(--serif, Georgia, serif);
   color: var(--forest, #1f3b2d);
-  font-size: clamp(28px, 4.4dvh, 38px); /* the rehearsal's 38px, smaller when the phone shrinks */
+  font-size: 34px; /* the phone is laid out at real size and scaled as a whole */
   font-weight: 500;
   line-height: 1.02;
 }

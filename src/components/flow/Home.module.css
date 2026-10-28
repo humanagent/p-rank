@@ -5,6 +5,8 @@
   gap: 12px;
 }
 .signout {
+  white-space: nowrap;
+  flex-shrink: 0;
   background: none;
   border: none;
   color: var(--forest, #1f3d2b);
@@ -48,6 +50,7 @@
   gap: 2px;
 }
 .date {
+  white-space: nowrap;
   font-weight: 600;
   font-size: 14px;
 }

@@ -18,7 +18,7 @@ const sans = Hanken_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Summer Invitational · Meridian Court Club",
+  title: { default: "Summer Invitational · Meridian Court Club", template: "%s · Summer Invitational" },
   description:
     "Enter the Summer Invitational at Meridian Court Club. Upload a rally; P-Rank, our AI, helps our coaches place you in the right draw, and a coach confirms every entry.",
 };

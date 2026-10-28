@@ -52,7 +52,7 @@ export function Result({
 
   return (
     <div className={ui.stack}>
-      {/* The verdict card from the rehearsal: your category big, P-Rank's band underneath. */}
+      {/* The verdict card: your category big, P-Rank's band underneath. */}
       {within ? (
         <div className={`${styles.verdict} ${styles.ok}`}>
           <span className={styles.vEyebrow}>Within P-Rank&apos;s band</span>
@@ -107,30 +107,32 @@ export function Result({
         </section>
       )}
 
-      <section className={styles.card}>
-        <h2 className={styles.h2}>Draws</h2>
-        {entry.waitlist ? (
-          <p className={styles.wait}>
-            <span className={ui.chip}>{CATEGORY_NAME[entry.waitlist.category]} draw</span>
-            <strong>{WAITLIST_LABEL[entry.waitlist.status]}</strong>
-          </p>
-        ) : draws.length > 0 ? (
-          <>
-            <p className={styles.why}>
-              {within
-                ? "Join a waitlist. Every spot waits for the club to confirm."
-                : "You can join the waitlist of a draw P-Rank would accept. Every spot waits for the club."}
-            </p>
-            <div className={styles.draws}>
-              {draws.map((c) => (
-                <button key={c} type="button" className={ui.secondary} disabled={joining !== null} onClick={() => join(c)}>
-                  {joining === c ? "Joining…" : `${CATEGORY_NAME[c]} draw waitlist`}
+      {/* One row per draw P-Rank would accept; joining puts you on its waitlist and the club confirms the spot. */}
+      <section className={styles.drawList}>
+        <h2 className={styles.h2}>{within ? "Waitlists you can join" : "Waitlists P-Rank would accept"}</h2>
+        {draws.length === 0 && <p className={styles.why}>No draw to join from this clip yet. A coach will review it.</p>}
+        {draws.map((c) => {
+          const mine = entry.waitlist?.category === c ? entry.waitlist : undefined;
+          return (
+            <div key={c} className={styles.drawRow}>
+              <span>{CATEGORY_NAME[c]} category</span>
+              {mine ? (
+                <span className={styles.drawStatus}>{WAITLIST_LABEL[mine.status]}</span>
+              ) : (
+                <button
+                  type="button"
+                  className={styles.joinBtn}
+                  disabled={joining !== null || !!entry.waitlist}
+                  onClick={() => join(c)}
+                >
+                  {joining === c ? "Joining…" : "Join waitlist"}
                 </button>
-              ))}
+              )}
             </div>
-          </>
-        ) : (
-          <p className={styles.why}>No draw to join from this clip yet. A coach will review it.</p>
+          );
+        })}
+        {entry.waitlist && (
+          <span className={styles.footnote}>The club confirms every spot before the draw is set.</span>
         )}
         {error && <p className={ui.error}>{error}</p>}
       </section>

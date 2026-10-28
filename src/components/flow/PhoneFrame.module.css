@@ -1,4 +1,4 @@
-/* Phone: full screen. Desktop: the flow inside an iPhone-shaped frame (rehearsal look, lead's fit-the-viewport fix). */
+/* Phone: full screen. Desktop: the flow inside an iPhone-shaped frame (fits the viewport height). */
 .page {
   min-height: 100dvh;
   width: 100%;
@@ -39,13 +39,17 @@
     overflow: hidden;
     padding: 24px clamp(16px, 4vw, 56px);
   }
-  .phone {
-    /* Same as the rehearsal: fit the window height (no page scroll), 414×868 proportions; the screen scrolls inside. */
+  /* The box takes the scaled size in the layout; the phone inside keeps its real size and is scaled into it. */
+  .phoneBox {
     flex: 0 0 auto;
-    height: min(868px, calc(100dvh - 48px));
-    width: auto;
-    aspect-ratio: 414 / 868;
-    min-height: 0;
+    width: calc(414px * var(--phone-scale, 1));
+    height: calc(868px * var(--phone-scale, 1));
+  }
+  .phone {
+    width: 414px;
+    height: 868px;
+    transform: scale(var(--phone-scale, 1));
+    transform-origin: top left;
     padding: 12px;
     border-radius: 62px;
     background: #121614;
@@ -68,7 +72,7 @@
     min-height: 0;
     border-radius: 50px;
     overflow: hidden auto;
-    padding-top: 42px; /* + the body's 20px = the rehearsal's 62px under the notch */
+    padding-top: 42px; /* + the body's 20px = 62px under the notch */
   }
 }
 @media (min-width: 1180px) {

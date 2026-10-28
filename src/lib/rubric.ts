@@ -1,4 +1,4 @@
-// What the model sees and answers: the rehearsal's prompts, word for word (the eval numbers are measured on them).
+// What the model sees and answers (the eval numbers in eval/ are measured on these prompts).
 // Step 1 finds the players and how to tell them apart; step 2 watches one of them, shot by shot, and names a
 // category. Argentine categories: 7th (beginner) to 1st (pro). The model never sees the claimed category.
 import type { Side } from "@/shared/types";
