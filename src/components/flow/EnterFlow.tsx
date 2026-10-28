@@ -107,7 +107,7 @@ export function EnterFlow() {
         )}
         {view.kind === "upload" && <Upload onCreated={open} />}
         {view.kind === "entry" && (
-          <EntryView entry={view.entry} onUpdated={open} onNewClip={() => setView({ kind: "upload" })} />
+          <EntryView entry={view.entry} onUpdated={open} onNewClip={() => setView({ kind: "upload" })} onHome={goHome} />
         )}
         {pollError && <p className={ui.error}>Lost contact with the server: {pollError}. Retrying…</p>}
       </div>
@@ -115,7 +115,17 @@ export function EnterFlow() {
   );
 }
 
-function EntryView({ entry, onUpdated, onNewClip }: { entry: Entry; onUpdated: (e: Entry) => void; onNewClip: () => void }) {
+function EntryView({
+  entry,
+  onUpdated,
+  onNewClip,
+  onHome,
+}: {
+  entry: Entry;
+  onUpdated: (e: Entry) => void;
+  onNewClip: () => void;
+  onHome: () => void;
+}) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -128,7 +138,7 @@ function EntryView({ entry, onUpdated, onNewClip }: { entry: Entry; onUpdated: (
     case "rating":
       return <Rating entry={entry} />;
     case "done":
-      return <Result entry={entry} onUpdated={onUpdated} onNewClip={onNewClip} />;
+      return <Result entry={entry} onUpdated={onUpdated} onNewClip={onNewClip} onHome={onHome} />;
     case "rejected":
       return (
         <div className={ui.stack}>
