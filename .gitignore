@@ -47,3 +47,6 @@ next-env.d.ts
 .amplify/
 amplify_outputs.json
 .open-next/
+
+# sample clips to send by email (public YouTube clips, not redistributed)
+samples/
