@@ -38,7 +38,8 @@ stays research.
 - **Auto-approve**: off on purpose; it would need a rule that passes a threshold on a fresh test set.
 - **Eval next steps**: measure Find on its own, a confusion matrix, one ablation per rubric change
   ([`eval/README.md`](eval/README.md#to-be-done-later)).
-- **Small data**: 17 dev clips, 2 to 4 per category, mostly one channel.
+- **More data**: more clips per category from more channels (today 17 dev clips, 2 to 4 per category, mostly one
+  channel), and negatives and higher categories in the test set.
 - **Not production ready**: no queue or concurrency cap on model calls; Cognito's default email sender (~50 a day);
   no consent or delete flow for the other players in a clip; no end-to-end test; deployed from a laptop.
 
