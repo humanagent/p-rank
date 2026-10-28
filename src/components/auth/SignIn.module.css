@@ -1,0 +1,105 @@
+.card {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 32px 28px;
+  background: var(--cream, #f6f1e7);
+  color: var(--ink, #1f2a24);
+  border: 1px solid color-mix(in srgb, var(--bronze, #a7814a) 45%, transparent);
+  border-radius: 6px;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03), 0 12px 32px rgba(31, 42, 36, 0.08);
+}
+.title {
+  margin: 0 0 8px;
+  font-family: var(--serif, Georgia, "Times New Roman", serif);
+  font-weight: 500;
+  font-size: 1.6rem;
+  color: var(--forest, #1e3b2f);
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.hint {
+  margin: 0;
+  font-size: 0.92rem;
+  opacity: 0.8;
+}
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--forest, #1e3b2f);
+}
+.input {
+  font: inherit;
+  font-size: 1rem;
+  letter-spacing: normal;
+  text-transform: none;
+  padding: 10px 12px;
+  border: 1px solid color-mix(in srgb, var(--ink, #1f2a24) 25%, transparent);
+  border-radius: 4px;
+  background: #fffdf8;
+  color: var(--ink, #1f2a24);
+}
+.input:focus {
+  outline: 2px solid var(--bronze, #a7814a);
+  outline-offset: 1px;
+  border-color: transparent;
+}
+.code {
+  font-size: 1.3rem;
+  letter-spacing: 0.3em;
+  text-align: center;
+}
+.button {
+  font: inherit;
+  padding: 11px 16px;
+  border: none;
+  border-radius: 4px;
+  background: var(--forest, #1e3b2f);
+  color: var(--cream, #f6f1e7);
+  cursor: pointer;
+  letter-spacing: 0.04em;
+}
+.button:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--forest, #1e3b2f) 85%, #000);
+}
+.button:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+.dev {
+  margin: 0;
+  padding: 8px 10px;
+  font-size: 0.85rem;
+  border-left: 3px solid var(--bronze, #a7814a);
+  background: color-mix(in srgb, var(--bronze, #a7814a) 12%, transparent);
+}
+.links {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+.link {
+  font: inherit;
+  font-size: 0.85rem;
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--bronze, #8a6a3b);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.link:disabled {
+  opacity: 0.5;
+}
+.error {
+  margin: 14px 0 0;
+  font-size: 0.9rem;
+  color: #9b2c2c;
+}
