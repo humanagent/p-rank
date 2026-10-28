@@ -12,7 +12,10 @@ export async function POST(req: Request, ctx: { params: Promise<{ id: string }> 
   const b = await body(req);
   const category = b?.category;
   if (!isCategory(category)) return err(400, "category must be from 1 to 7");
-  if (!entry.draws?.includes(category)) return err(403, "That draw is not open to this entry");
+  // An entrant enters the draw of the category they claimed, and only when P-Rank's band agrees (within ±1).
+  // Outside the band, a coach decides instead.
+  if (entry.verdict !== "within") return err(403, "Outside P-Rank's band: a coach reviews this entry first");
+  if (category !== entry.claimed) return err(403, "You can only enter the draw of the category you claimed");
   if (entry.waitlist && entry.waitlist.status !== "declined") return err(409, "Already on a waitlist");
   const updated = await store.update(id, (x) => ({ ...x, waitlist: { category, status: "waiting" } }));
   await store.appendLog(id, "waitlist", `joined the ${category} waitlist`);

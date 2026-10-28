@@ -115,3 +115,22 @@
 .joinBtn:disabled { opacity: 0.45; cursor: default; }
 .drawStatus { font-size: 15px; font-weight: 500; color: var(--muted, #6b675e); white-space: nowrap; }
 .footnote { font-size: 14px; color: var(--muted, #6b675e); }
+
+/* The success card: the same club card as the landing, minimal. */
+.memberCard {
+  aspect-ratio: 1.586;
+  border-radius: 20px;
+  background: var(--forest, #1f3b2d);
+  color: var(--cream, #efe9dc);
+  border: 1px solid var(--bronze, #a87b45);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 24px 50px -24px rgba(29, 59, 47, 0.6);
+}
+.memberRow { display: flex; justify-content: space-between; align-items: baseline; }
+.memberClub { font-family: var(--serif, Georgia, serif); font-weight: 700; font-size: 16px; letter-spacing: 0.18em; text-transform: uppercase; }
+.memberM { font-family: var(--serif, Georgia, serif); font-style: italic; font-size: 24px; color: #d9b77e; }
+.memberCat { font-family: var(--serif, Georgia, serif); font-size: 40px; font-weight: 600; line-height: 1; }
+.memberFoot { display: flex; justify-content: space-between; font-size: 13px; color: #dfe6dc; }
