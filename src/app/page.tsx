@@ -116,7 +116,6 @@ export default function Home() {
                 </li>
               ))}
             </ol>
-            <p className={s.honest}>P-Rank is in beta: it helps our coaches, and a coach confirms every entry.</p>
             <div className={`${s.stack} ${s.stackLeft}`}>
               <Link href="/enter" className="btn btn-primary">
                 Enter the Invitational · upload your clip
@@ -124,6 +123,7 @@ export default function Home() {
             </div>
           </div>
 
+          <div className={s.entrySide}>
           <div className={s.card} role="img" aria-label="A player's card for the 5th category draw, confirmed by the club">
             <div className={s.cardRow}>
               <span className={s.cardClub}>Meridian Court</span>
@@ -136,6 +136,8 @@ export default function Home() {
               <span>Summer Invitational</span>
               <span>Confirmed</span>
             </div>
+          </div>
+            <p className={s.honest}>P-Rank is in beta: it helps our coaches, and a coach confirms every entry.</p>
           </div>
         </section>
       </main>

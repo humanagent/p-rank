@@ -385,20 +385,25 @@
   color: var(--ink-2);
 }
 
+/* The card, with the beta note under it as a quiet caption. */
+.entrySide {
+  flex: 1 1 320px;
+  min-width: 0;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
 .honest {
-  border-left: 2px solid var(--bronze);
-  padding: 4px 0 4px 16px;
-  font-family: var(--serif);
-  font-size: 22px;
-  font-weight: 600;
-  line-height: 1.25;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--muted);
+  text-align: center;
 }
 
 /* Example card */
 .card {
-  flex: 1 1 320px;
-  min-width: 0;
-  max-width: 440px;
+  width: 100%;
   aspect-ratio: 1.586;
   border-radius: 20px;
   background: var(--forest);
@@ -469,7 +474,7 @@
 /* Footer */
 .footer {
   margin-top: auto;
-  padding: 40px var(--pad) 56px;
+  padding: 28px var(--pad) 24px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
