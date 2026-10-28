@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import { CATEGORY_NAME, type Entry } from "@/shared/types";
 import { bandText, outsideText, type Action } from "./util";
-import styles from "./club.module.css";
+import styles from "./admin.module.css";
 
 type Props = { entry: Entry; mine: boolean; busy: boolean; onAct: (id: string, action: Action, note?: string) => void };
 

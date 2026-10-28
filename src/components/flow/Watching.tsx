@@ -2,6 +2,7 @@
 import type { Entry } from "@/shared/types";
 import { clipUrl } from "./api";
 import { LiveLog } from "./LiveLog";
+import { PoweredBy } from "@/components/brand/PoweredBy";
 import ui from "./ui.module.css";
 import styles from "./Watching.module.css";
 
@@ -40,6 +41,7 @@ export function Watching({ entry, title, note }: { entry: Entry; title: string; 
       <div className={ui.head}>
         <h2 className={`${ui.title} ${styles.title}`}>{title}</h2>
         <span className={styles.note}>{note}</span>
+        <PoweredBy tone="dark" />
       </div>
       <div className={styles.clip}>
         <video src={clipUrl(entry.clipKey)} autoPlay muted loop playsInline />

@@ -2,6 +2,7 @@
 import { useRef, useState } from "react";
 import { CATEGORY_NAME, type Category, type Entry } from "@/shared/types";
 import { bandLabel } from "@/lib/categories";
+import { PoweredBy } from "@/components/brand/PoweredBy";
 import { clipUrl, joinWaitlist } from "./api";
 import ui from "./ui.module.css";
 import styles from "./Result.module.css";
@@ -60,6 +61,7 @@ export function Result({
           <span className={styles.small}>
             You said {entry.claimed ? CATEGORY_NAME[entry.claimed] : "–"} · P-Rank: {bandLabel(a!.band!)} · within one category
           </span>
+          <PoweredBy tone="dark" />
         </div>
       ) : (
         <div className={`${styles.verdict} ${styles.wait}`}>
@@ -68,6 +70,7 @@ export function Result({
           <span className={styles.small}>
             You said {entry.claimed ? CATEGORY_NAME[entry.claimed] : "–"} · P-Rank: {rated ? bandLabel(a!.band!) : "–"} · the club decides
           </span>
+          <PoweredBy />
         </div>
       )}
 

@@ -1,4 +1,4 @@
-// The club desk's state rules, pure so they can be tested without a store or a session.
+// The admin desk's state rules, pure so they can be tested without a store or a session.
 import type { Entry } from "@/shared/types";
 
 export type ReviewAction = "approve" | "reject" | "confirm" | "decline";

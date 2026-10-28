@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PoweredBy } from "@/components/brand/PoweredBy";
 import { Crest } from "@/components/landing/Crest";
 import { Hall } from "@/components/landing/Hall";
 import s from "@/components/landing/landing.module.css";
@@ -58,12 +59,10 @@ export default function Home() {
             Padel, one draw per category, 7th to 2nd. Grand prize, a trip to Japan. P-Rank helps our coaches place
             every player in the right draw; a coach confirms every entry.
           </p>
+          <PoweredBy />
           <div className={s.stack}>
             <Link href="/enter" className="btn btn-primary">
               Enter the Invitational · upload your clip
-            </Link>
-            <Link href="/club" className="btn btn-ghost btn-small">
-              Club desk
             </Link>
           </div>
         </section>
@@ -117,7 +116,7 @@ export default function Home() {
                 </li>
               ))}
             </ol>
-            <p className={s.honest}>P-Rank helps our coaches; a coach confirms every entry.</p>
+            <p className={s.honest}>P-Rank is in beta: it helps our coaches, and a coach confirms every entry.</p>
             <div className={`${s.stack} ${s.stackLeft}`}>
               <Link href="/enter" className="btn btn-primary">
                 Enter the Invitational · upload your clip
@@ -125,19 +124,17 @@ export default function Home() {
             </div>
           </div>
 
-          <div className={s.card} role="img" aria-label="Example of a P-Rank read, as a club card">
+          <div className={s.card} role="img" aria-label="A player's card for the 5th category draw, confirmed by the club">
             <div className={s.cardRow}>
               <span className={s.cardClub}>Meridian Court</span>
               <span className={s.cardM}>M</span>
             </div>
             <div className={s.cardMid}>
-              <span className={s.cardEyebrow}>Example · P-Rank read</span>
               <span className={s.cardCat}>5th category</span>
-              <span className={s.cardSmall}>You said 5th · P-Rank: 4th / 5th · within one</span>
             </div>
             <div className={s.cardFoot}>
-              <span>Awaiting coach</span>
               <span>Summer Invitational</span>
+              <span>Confirmed</span>
             </div>
           </div>
         </section>
@@ -145,10 +142,10 @@ export default function Home() {
 
       <footer className={s.footer}>
         <span>
-          Entry analysis by <b>P-Rank</b>, an AI helper for the club’s coaches. A coach confirms every entry.
+          Powered by <b>P-Rank</b> (beta), an AI helper for the club’s coaches. A coach confirms every entry.
         </span>
         <span>
-          Meridian Court Club is fictional, built for a take-home. <Link href="/club">Club desk</Link>
+          Meridian Court Club is fictional, built for a take-home.
         </span>
       </footer>
     </div>

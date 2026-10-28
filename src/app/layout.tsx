@@ -20,7 +20,7 @@ const sans = Hanken_Grotesk({
 export const metadata: Metadata = {
   title: { default: "Summer Invitational · Meridian Court Club", template: "%s · Summer Invitational" },
   description:
-    "Enter the Summer Invitational at Meridian Court Club. Upload a rally; P-Rank, our AI, helps our coaches place you in the right draw, and a coach confirms every entry.",
+    "Enter the Summer Invitational at Meridian Court Club. Upload a rally; P-Rank, our AI in beta, helps our coaches place you in the right draw, and a coach confirms every entry.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

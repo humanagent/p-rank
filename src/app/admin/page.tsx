@@ -2,8 +2,8 @@
 
 import { SignIn } from "@/components/auth/SignIn";
 import { useSession } from "@/components/auth/useSession";
-import { ClubDesk } from "@/components/club/ClubDesk";
-import styles from "@/components/club/club.module.css";
+import { AdminDesk } from "@/components/admin/AdminDesk";
+import styles from "@/components/admin/admin.module.css";
 
 export default function ClubPage() {
   const { session, loading, refresh, signOut } = useSession();
@@ -12,7 +12,7 @@ export default function ClubPage() {
   if (!session) {
     return (
       <main className={styles.shell}>
-        <SignIn onSignedIn={refresh} title="Club desk · coaches only" />
+        <SignIn onSignedIn={refresh} title="Admin · coaches only" />
       </main>
     );
   }
@@ -31,5 +31,5 @@ export default function ClubPage() {
       </main>
     );
   }
-  return <ClubDesk email={session.email} onSignOut={signOut} />;
+  return <AdminDesk email={session.email} onSignOut={signOut} />;
 }
