@@ -50,3 +50,5 @@ amplify_outputs.json
 
 # sample clips to send by email (public YouTube clips, not redistributed)
 samples/
+# eval clips (public YouTube clips, fetched with eval/fetch-clips.sh, not redistributed)
+eval/clips/
